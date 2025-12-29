@@ -79,8 +79,6 @@ public class SortingII{
 
     public static void quickSort(int[] arr,int low, int high){
 
-        if (low >= high) return;; // base case
-
         if(low < high){
 
             int partitionIndex = partition(arr,low,high);
@@ -90,8 +88,7 @@ public class SortingII{
             quickSort(arr,partitionIndex+1,high);
 
         } 
-
-        
+    
     }
 
     public static int partition(int[] arr,int low,int high){
@@ -116,7 +113,6 @@ public class SortingII{
         swap(arr, low, j);
         return j;
     }
-
 
     public static void main(String[] args) {
         

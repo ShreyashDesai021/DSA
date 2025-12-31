@@ -180,33 +180,251 @@ public class ArraysEasy {
 
     public static int[] unionOfArrays(int[] arr1, int[] arr2){
 
-        LinkedHashSet<Integer> lh = new LinkedHashSet<>();
+        LinkedHashSet<Integer> lh = new LinkedHashSet<>(); // to maintain the order of insertion
 
         for(int i = 0;i < arr1.length;i++){
             lh.add(arr1[i]);
         }
 
-        for(int i = 0;i < arr1.length;i++){
+        for(int i = 0;i < arr2.length;i++){
             lh.add(arr2[i]);
         }
 
-        for (int x : lh) {
-            
+
+        int[] result = new int[lh.size()];
+        int i = 0;
+
+        for (int x : lh) { // iterating through LinkedHashSet 
+            result[i++] = x;
         }
 
-        return 
+        return result; 
+
+
+        // if(arr1.length>arr2.length){ // checking which array is larger to create result array of that size
+                                        //can there be more elements than larger array? yes if both arrays have completely distinct elements
+                                        // hence use the size of LinkedHashSet to create result array as done in above code 
+        //     int i = 0;
+        //     for (int x : lh) {
+        //         arr1[i] = x;
+        //         i++;
+        //     }
+        //     return arr1;
+        // }
+        // int i = 0;
+
+        // for (int x : lh) {
+        //     arr2[i] = x;
+        //     i++;
+        // }
+        // return arr2;
 
     }
 
+    public static ArrayList<Integer> unionOfArraysOptimal(int[] arr1, int[] arr2){
+        int i=0;
+        int j=0;
+
+        ArrayList<Integer> result = new ArrayList<>();
+
+        while(i < arr1.length && j < arr2.length){       // comparing elements of both arrays
+            if(arr1[i] < arr2[j]){ // arr1 element is smaller
+                if(result.isEmpty() || result.get(result.size() - 1) != arr1[i]){ // to avoid duplicates
+                    result.add(arr1[i]); 
+                }
+                i++; // move to next element in arr1
+            }
+            else if(arr1[i] > arr2[j]){ // arr2 element is smaller
+                if(result.isEmpty() || result.get(result.size() - 1) != arr2[j]){ // to avoid duplicates
+                    result.add(arr2[j]);// add arr2 element to result
+                }
+                j++; // move to next element in arr2
+            }
+            else { // arr1[i] == arr2[j] // both elements are equal
+                if (result.isEmpty() || result.get(result.size() - 1) != arr1[i]) {  // to avoid duplicates
+                    result.add(arr1[i]);
+                }
+                i++; // move to next element in both arrays
+                j++; // move to next element in both arrays
+            }
+
+        }
+
+        
+        while (i < arr1.length) { // remaining elements of arr1 (NO COMPARISON)
+            if (result.get(result.size() - 1) != arr1[i]) { // to avoid duplicates
+                result.add(arr1[i]);
+            }
+            i++; // move to next element in arr1
+        }
+
+        // remaining elements of arr2 (NO COMPARISON)
+        while (j < arr2.length) { // remaining elements of arr2
+            if (result.get(result.size() - 1) != arr2[j]) { // to avoid duplicates
+                result.add(arr2[j]);
+            }
+            j++; // move to next element in arr2
+        }
+
+        return result;
+        
+    }
+
+    public static ArrayList<Integer> intersectionOptimal(int[] arr1, int[] arr2) {
+
+        ArrayList<Integer> res = new ArrayList<>();
+        int i = 0, j = 0;
+
+        while (i < arr1.length && j < arr2.length) {
+
+            if (arr1[i] < arr2[j]) {
+                i++;
+            }
+            else if (arr1[i] > arr2[j]) {
+                j++;
+            }
+            else { // equal
+                res.add(arr1[i]);
+                i++;
+                j++;
+            }
+        }
+        return res;
+    }
+
+  public static int missingNumber(int[] nums) {
+
+        int n = nums.length;
+
+        for (int i = 0; i <= n; i++) {   // check 0 to n hence i <= n
+            boolean found = false;
+
+            for (int j = 0; j < n; j++) { // iterate through the array to check if i is present hence j < n
+                if (nums[j] == i) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) return i;
+        }
+        return -1;
+    }
+
+    public static int missingNumFormula(int[] arr){
+        int n = arr.length;
+
+        int accSum = 0;
+        for(int i = 0;i < arr.length;i++){
+            accSum += arr[i];
+        }
+
+        int expSum = n*(n+1)/2;
+
+        return expSum - accSum;
+
+    }
+
+    public static int missingNumberHashing(int[] arr) { // using hashing array
+        int n = arr.length;
+
+        // Step 1: Create hash array of size n+1
+        int[] hash = new int[n + 1];
+
+        // Step 2: Mark present numbers
+        for (int i = 0; i < n; i++) {
+            hash[arr[i]] = 1;
+        }
+
+        // Step 3: Find missing number
+        for (int i = 0; i <= n; i++) { 
+            if (hash[i] == 0) {
+                return i;
+            }
+        }
+
+        return -1; // safety
+    }
+
+
+    public static int missingNumberHashSet(int[] arr) { // using hashset
+        int n = arr.length;
+
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int num : arr) {
+            set.add(num);
+        }
+
+        for (int i = 0; i <= n; i++) {  
+            if (!set.contains(i)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public static int missingNumXOR(int[] arr){
+        int XOR1 = 0;
+        int XOR2 = 0;
+
+        for(int i = 0;i < arr.length;i++){
+            XOR1 ^= arr[i];
+        }
+
+        for(int i = 0;i <= arr.length;i++){   // here i <= arr.length because we are using it to iterate through numbers for 0 to arr.length
+                                           //we are not using arr[i] and accessing the values of it won't cause ArrayIndexOutOfBoundsException
+            XOR2 ^= i;
+        }
+
+        return XOR1 ^ XOR2;
+    }
+
+    public static int missingNumXOROneLoop(int[] arr){
+        int n = arr.length;
+        int XOR = 0;
+
+        for(int i = 0;i < n;i++){
+            XOR ^= arr[i]; // XOR of all elements in the array
+            XOR ^= i; // XOR of all indices from 0 to n-1 to get all numbers from 0 to n-1
+        }
+
+        XOR ^= n; // to include the last number n
+
+        return XOR;
+    }
+
+    public static int maxCons1s(int[] arr){
+        int count= 0;
+        int maxCount = 0;
+        for(int i = 0;i< arr.length;i++){
+            if(arr[i] == 1){
+                count++;
+            }
+            else{
+                count = 0;
+            }
+            if(count > maxCount){
+                maxCount = count;
+            }
+        }
+
+        return maxCount;
+
+    }
+
+
     public static void main(String[] args) {
         
-        int[] arr = new int[]{1,0,2,3,2,0,0,4,5,1,0}; 
+        int[] arr1 = new int[]{4,1,6,0,2,3,5}; 
+        int[] arr = new int[]{0,1,1,1,0,0,1,1,0,0,1};
 
         for (int i = 0; i < arr.length; i++) { 
             System.out.print(arr[i] + " ");
         }
 
-        System.err.println("");
+        
         // System.out.println(secLargest(arr));
         // System.err.println(checkSorted(arr));
         //System.out.println(removeDuplicateEnhanced(arr));
@@ -215,11 +433,45 @@ public class ArraysEasy {
         //leftRotateByd(arr,6);
 
         // leftRotateBydOptimal(arr,3);
-        moveZerostoEnd(arr);
+        // moveZerostoEnd(arr);
 
-        for (int i = 0; i < arr.length; i++) { 
-            System.out.print(arr[i] + " ");
-        }
+        // int[] arr1 = new int[]{1,2,3,4,4,5};
+
+        // int[] arr2 = new int[]{2,3,5,6,7};
+
+        // int n;                // all these lines are not needed as we can directly create result array using LinkedHashSet size
+
+        // if(arr1.length > arr2.length){
+        //     n = arr1.length;
+        // }else {
+        //     n = arr2.length;
+        // }
+
+        // int[] arr3 = new int[n];
+
+        // arr3 = unionOfArrays(arr1,arr2);
+
+        //int[] arr3 = unionOfArrays(arr1, arr2);
+
+        //ArrayList<Integer> li = unionOfArraysOptimal(arr1,arr2);
+
+        // ArrayList<Integer> li = intersectionOptimal(arr1,arr2);
+
+        // for (int i = 0; i < li.size(); i++) {
+        //     System.out.print(li.get(i) + " ");
+        // }
+
+        // for (int i = 0; i < arr.length; i++) { 
+        //     System.out.print(arr[i] + " ");
+        // }
+
+        System.out.println("");
+       // System.out.println(missingNumber(arr));
+        //System.out.println(missingNumFormula(arr));
+
+       // System.out.println(missingNumXOROneLoop(arr));
+        System.out.println(maxCons1s(arr));
+
 
     }
 }

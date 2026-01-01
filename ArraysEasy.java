@@ -423,9 +423,72 @@ public class ArraysEasy {
         return XOR;
     }
 
+    public static int longestSubArrayWithGivenSumK(int[] arr,int k){
+        
+        int maxLen = 0;
+        for(int i = 0;i < arr.length;i++){
+            int sum = 0; // sum for every new starting index
+            int len = 0; //must be inside for loop to reset length for every new starting index
+            for(int j = i;j < arr.length;j++){
+                sum += arr[j];
+                if(sum == k){
+                    len = j-i+1;
+                    //break; // break should be used only if all elements are positive else it will not work for negative elements
+                }
+            }
+            if(len > maxLen){
+                maxLen = len; 
+            }
+        }
+        return maxLen;
+    }
+
+    // public static int longestSubArrayWithGivenSumKSlidingWindow(int[] arr,int k){
+    //     int maxLen = 0;
+    //     int sum = 0;
+    //     for(int i = 0;i < arr.length;i++){
+    //         int len = 0;
+    //         for(int j = i;j < arr.length;j++){
+    //             sum += arr[j];
+    //             if(sum > k){
+                    
+    //             }
+    //         }
+    //     }
+
+    // }
+
+
+    public static int[] twoSum(int[] arr,int target){
+        int[] temp = new int[2];
+        int sum = 0;
+        for(int i = 0;i < arr.length;i++){
+            
+            sum += arr[i];
+            for(int j = 0;j < arr.length;j++){
+                if(i != j){
+                    sum += arr[j];
+                    if(sum == target){
+                        temp[0] = arr[i];
+                        temp[1] = arr[j];
+                        return temp; 
+                    }
+                }
+
+            }
+        }
+
+        temp[0] = -1;
+        temp[1] = -1;
+
+        return temp;
+
+    }
+
     public static void main(String[] args) {
         
-        int[] arr = new int[]{4,6,6,0,4,1,1}; 
+        int[] arr = new int[]{2,7,11,15};
+        int t = 18; 
         int[] arr1 = new int[]{0,1,1,1,0,0,1,1,0,0,1};
 
         for (int i = 0; i < arr.length; i++) { 
@@ -479,7 +542,15 @@ public class ArraysEasy {
 
        // System.out.println(missingNumXOROneLoop(arr));
         //System.out.println(maxCons1s(arr));
-        System.out.println(findNumthatAppearsOnceandOthersTwice(arr));
+        //System.out.println(findNumthatAppearsOnceandOthersTwice(arr));
+
+        //System.out.println(longestSubArrayWithGivenSumK(arr,15));
+
+        int[] t_arr = twoSum(arr,t);
+
+        for (int i = 0; i < t_arr.length; i++) {
+            System.out.print(t_arr[i] + " ");
+        }
 
 
     }

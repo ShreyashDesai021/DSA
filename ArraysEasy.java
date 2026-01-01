@@ -414,11 +414,19 @@ public class ArraysEasy {
 
     }
 
+    public static int findNumthatAppearsOnceandOthersTwice(int[] arr){
+        int XOR = 0;
+        for(int i = 0;i < arr.length;i++){
+            XOR ^= arr[i];
+        }
+
+        return XOR;
+    }
 
     public static void main(String[] args) {
         
-        int[] arr1 = new int[]{4,1,6,0,2,3,5}; 
-        int[] arr = new int[]{0,1,1,1,0,0,1,1,0,0,1};
+        int[] arr = new int[]{4,6,6,0,4,1,1}; 
+        int[] arr1 = new int[]{0,1,1,1,0,0,1,1,0,0,1};
 
         for (int i = 0; i < arr.length; i++) { 
             System.out.print(arr[i] + " ");
@@ -470,7 +478,8 @@ public class ArraysEasy {
         //System.out.println(missingNumFormula(arr));
 
        // System.out.println(missingNumXOROneLoop(arr));
-        System.out.println(maxCons1s(arr));
+        //System.out.println(maxCons1s(arr));
+        System.out.println(findNumthatAppearsOnceandOthersTwice(arr));
 
 
     }

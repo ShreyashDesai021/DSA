@@ -460,34 +460,127 @@ public class ArraysEasy {
 
 
     public static int[] twoSum(int[] arr,int target){
-        int[] temp = new int[2];
-        int sum = 0;
+        
         for(int i = 0;i < arr.length;i++){
-            
-            sum += arr[i];
-            for(int j = 0;j < arr.length;j++){
-                if(i != j){
-                    sum += arr[j];
-                    if(sum == target){
-                        temp[0] = arr[i];
-                        temp[1] = arr[j];
-                        return temp; 
+                for(int j = i + 1; j < arr.length;j++){
+                    if(arr[i] + arr[j] == target){
+                        return new int[]{i,j};
                     }
                 }
 
-            }
         }
 
-        temp[0] = -1;
-        temp[1] = -1;
-
-        return temp;
+        return new int[]{-1,-1};
 
     }
 
+    public static int[] twoSumHashMap(int[] arr,int target){
+        
+        
+    LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
+
+    for (int i = 0; i < arr.length; i++) {
+            int complement = target - arr[i];
+
+            // If complement found, return indices
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
+            }
+
+            // Store current element and index
+            map.put(arr[i], i);
+        }
+
+        // No pair found
+        return new int[] { -1, -1 };
+    }
+
+    public static int[] twoSumTwoPointer(int[] arr, int target) {
+        int n = arr.length;
+        int[][] numsWithIndex = new int[n][2]; // to store numbers along with their original indices
+                                              // 2D array where first column is value and second column is original index
+        
+        // Store element with original index
+        for (int i = 0; i < n; i++) {
+            numsWithIndex[i][0] = arr[i]; // value
+            numsWithIndex[i][1] = i; // original index
+        }
+        
+        // Sort by the value to apply two-pointer
+        Arrays.sort(numsWithIndex, (a, b) -> Integer.compare(a[0], b[0]));
+
+        int left = 0, right = n - 1;
+        while (left < right) {
+            int sum = numsWithIndex[left][0] + numsWithIndex[right][0];
+            if (sum == target) {
+                // Return original indices of the two numbers found
+                return new int[] {numsWithIndex[left][1], numsWithIndex[right][1]};
+            } else if (sum < target) {
+                // Increase sum by moving left pointer forward
+                left++;
+            } else {
+                // Decrease sum by moving right pointer backward
+                right--;
+            }
+        }
+        
+        // No pair found
+        return new int[] {-1, -1};
+    }
+
+    public static void sort012(int[] arr){ // brute force approach // bubble sort
+
+        for(int i = 1;i < arr.length;i++){
+            for(int j = i;j < arr.length;j++){
+                if(arr[i-1] > arr[j]){
+                    swap(arr,i-1,j);
+                }
+            }
+        }
+    }
+
+    public static void sort012_3counter(int[] arr){ // counting approach
+        int zero = 0;
+        int one = 0;
+        int two = 0;
+        for(int i = 0;i < arr.length;i++){
+            if(arr[i] == 0){
+                zero++;
+            }else if(arr[i] == 1){
+                one++;
+            }
+            else{
+                two++;
+            }
+        }
+
+        // for(int i = 0;i < zero;i++){  // wrong way to do it as it overwrites values of arr while counting
+        //     arr[i] = 0;
+        // }
+
+        // for(int i = zero;i < one;i++){
+        //     arr[i] = 1;
+        // }
+
+        // for(int i = one;i < two;i++){
+        //     arr[i] = 2;
+        // }
+
+        int index = 0;
+        for(int i = 0; i < zero; i++) arr[index++] = 0;
+        for(int i = 0; i < one;  i++) arr[index++] = 1;
+        for(int i = 0; i < two;  i++) arr[index++] = 2;
+
+    }
+
+    
+
+
+
+
     public static void main(String[] args) {
         
-        int[] arr = new int[]{2,7,11,15};
+        int[] arr = new int[]{1,0,2,1,0};
         int t = 18; 
         int[] arr1 = new int[]{0,1,1,1,0,0,1,1,0,0,1};
 
@@ -546,12 +639,20 @@ public class ArraysEasy {
 
         //System.out.println(longestSubArrayWithGivenSumK(arr,15));
 
-        int[] t_arr = twoSum(arr,t);
+        // int[] t_arr = twoSum(arr,t);
 
-        for (int i = 0; i < t_arr.length; i++) {
-            System.out.print(t_arr[i] + " ");
+        //int[] t_arr = twoSumHashMap(arr,t);
+
+        //int[] t_arr = twoSumTwoPointer(arr,t);
+
+        //sort012(arr);
+
+        sort012_3counter(arr);
+
+        for (int i = 0; i <arr.length; i++) {
+            System.out.print(arr[i] + " ");
         }
 
-
+        
     }
 }

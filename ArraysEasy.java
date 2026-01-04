@@ -656,3 +656,5 @@ public class ArraysEasy {
         
     }
 }
+
+// tried majority sums 

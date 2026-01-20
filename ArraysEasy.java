@@ -635,7 +635,7 @@ public class ArraysEasy {
         return ele;
     }
 
-    public static int maxSubArrSum(int[] arr){
+    public static int maxSubArrSum_brute(int[] arr){
         int maxSum = 0;
 
         for(int i = 0;i < arr.length;i++){

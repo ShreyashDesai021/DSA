@@ -636,21 +636,89 @@ public class ArraysEasy {
     }
 
     public static int maxSubArrSum_brute(int[] arr){
-        int maxSum = 0;
+        int maxSum = Integer.MIN_VALUE;;
 
         for(int i = 0;i < arr.length;i++){
             
             for(int j = i;j< arr.length;j++){
                 int sum = 0;
-                for(int k = i;k < j;k++){
+                for(int k = i;k <= j;k++){
                     sum += arr[k];
-                    maxSum = Math.max(maxSum,sum);
                 }
+                maxSum = Math.max(maxSum,sum);
             }
         }
 
         return maxSum;
     }
+
+    public static int maxSubArrSum_better(int[] arr){
+        int maxSum = Integer.MIN_VALUE;
+
+        for(int i = 0; i < arr.length; i++){
+            int sum = 0;
+            for(int j = i; j < arr.length; j++){
+                sum += arr[j];
+                maxSum = Math.max(maxSum, sum);
+            }
+        }
+        return maxSum;
+    }
+
+    public static int maxSubArrSum_opt_kadane_algo(int[] arr){
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i]; 
+            
+            if (sum > max) {
+                max = sum; 
+            }
+            
+            if (sum < 0) {
+                sum = 0; 
+            }
+        }
+
+        return max;
+    }
+
+    public static int maxSubArrSum_opt_kadane_algo_idx(int[] arr){
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+
+        int start = 0; 
+        
+        int ansStart = -1, ansEnd = -1; 
+
+        for (int i = 0; i < arr.length; i++) {
+
+            if(sum == 0){
+                start = i;
+            }
+
+            sum += arr[i]; 
+            
+            if (sum > max) {
+                max = sum; 
+                ansStart = start;
+                ansEnd = i;
+            }
+            
+            if (sum < 0) {
+                sum = 0; 
+            }
+        }
+
+        System.out.print("The subarray is: [");
+        for (int i = ansStart; i <= ansEnd; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println("]");
+
+        return max;
+    }
+
  
 
     public static void main(String[] args) {
@@ -732,7 +800,13 @@ public class ArraysEasy {
 
         //int major = majorityElement_opt_moore_voting(arr);
 
-        int max = maxSubArrSum_brute(arr);
+        //int max = maxSubArrSum_brute(arr);
+
+        //int max = maxSubArrSum_better(arr);
+
+        //int max = maxSubArrSum_opt_kadane_algo(arr);
+
+        int max = maxSubArrSum_opt_kadane_algo_idx(arr);
 
         System.out.println(max);
 

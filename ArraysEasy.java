@@ -56,12 +56,12 @@ public class ArraysEasy {
     public static boolean checkSorted(int[] arr){
         if(arr.length < 2) return true;
 
-                for(int i = 1 ; i < arr.length;i++){
-                            if(arr[i-1] > arr[i]){
-                                            return false;
-                                                        }
-                                                                }
-                                                                        return true;
+        for(int i = 1 ; i < arr.length;i++){
+            if(arr[i-1] > arr[i]){
+                return false;
+            }
+        }
+        return true;
     }
 
     public static int removeDuplicate(int[] arr){ // Using HashSet 
@@ -573,16 +573,75 @@ public class ArraysEasy {
 
     }
 
+    public static void dnf_012sort(int[] arr){ //dnf = dutch national flag
+        int low = 0;
+        int mid = 0;
+        int high = arr.length - 1;
+        while(mid <= high){
+            if(arr[mid] == 0){
+                swap(arr, low, mid);
+                low++;
+                mid++;
+            }else if(arr[mid] == 1){
+                mid++;
+            }else if(arr[mid] == 2){
+                swap(arr, mid, high);
+                high--;
+            }
+        }
+    }
     
+    public static int majorityElement_brute_count(int[] arr){ //element > arr.length/2
+        for(int i = 0;i < arr.length;i++){
+            int count = 0;
+            for(int j = 0;j < arr.length;j++){
+                if(arr[i] == arr[j]) count++;
+            }
+            if(count > arr.length/2) return arr[i];
+        }
+        return -1;
+    }
 
+    public static int majorityElement_better_hash(int[] arr){
+        HashMap<Integer, Integer> map = new HashMap<>();
 
+        for (int x : arr) {
+            map.put(x, map.getOrDefault(x, 0) + 1);
+        }
 
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if(entry.getValue() > arr.length/2 ){
+                return entry.getKey();
+            }
+        }
+
+        return -1;
+    }
+
+    public static int majorityElement_opt_moore_voting(int[] arr) {
+        int cnt = 0;
+        int ele = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (cnt == 0) {
+                ele = arr[i];   
+                cnt = 1;
+            } else if (arr[i] == ele) {
+                cnt++;
+            } else {
+                cnt--;
+            }
+        }
+        return ele;
+    }
+
+ 
 
     public static void main(String[] args) {
         
-        int[] arr = new int[]{1,0,2,1,0};
-        int t = 18; 
-        int[] arr1 = new int[]{0,1,1,1,0,0,1,1,0,0,1};
+        int[] arr = new int[]{2,2,3,3,3,3,2};
+        //int t = 18; 
+        //int[] arr1 = new int[]{0,1,1,1,0,0,1,1,0,0,1};
 
         for (int i = 0; i < arr.length; i++) { 
             System.out.print(arr[i] + " ");
@@ -647,11 +706,24 @@ public class ArraysEasy {
 
         //sort012(arr);
 
-        sort012_3counter(arr);
+        //sort012_3counter(arr);
 
-        for (int i = 0; i <arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
+        //dnf_012sort(arr);
+
+        //int major = majorityElement_brute_count(arr);
+
+        //int major = majorityElement_better_hash(arr);
+
+        int major = majorityElement_opt_moore_voting(arr);
+
+        System.out.println(major);
+
+        // for (int i = 0; i <arr.length; i++) {
+        //     System.out.print(arr[i] + " ");
+        // }
+
+
+        System.err.println("");
 
         
     }

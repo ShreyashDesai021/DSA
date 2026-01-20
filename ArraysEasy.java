@@ -635,11 +635,27 @@ public class ArraysEasy {
         return ele;
     }
 
+    public static int maxSubArrSum(int[] arr){
+        int maxSum = 0;
+
+        for(int i = 0;i < arr.length;i++){
+            
+            for(int j = i;j< arr.length;j++){
+                int sum = 0;
+                for(int k = i;k < j;k++){
+                    sum += arr[k];
+                    maxSum = Math.max(maxSum,sum);
+                }
+            }
+        }
+
+        return maxSum;
+    }
  
 
     public static void main(String[] args) {
         
-        int[] arr = new int[]{2,2,3,3,3,3,2};
+        int[] arr = new int[]{-2,-3,4,-1,-2,1,5,-3};
         //int t = 18; 
         //int[] arr1 = new int[]{0,1,1,1,0,0,1,1,0,0,1};
 
@@ -714,9 +730,11 @@ public class ArraysEasy {
 
         //int major = majorityElement_better_hash(arr);
 
-        int major = majorityElement_opt_moore_voting(arr);
+        //int major = majorityElement_opt_moore_voting(arr);
 
-        System.out.println(major);
+        int max = maxSubArrSum(arr);
+
+        System.out.println(max);
 
         // for (int i = 0; i <arr.length; i++) {
         //     System.out.print(arr[i] + " ");

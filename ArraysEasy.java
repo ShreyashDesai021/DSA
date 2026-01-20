@@ -732,7 +732,7 @@ public class ArraysEasy {
 
         //int major = majorityElement_opt_moore_voting(arr);
 
-        int max = maxSubArrSum(arr);
+        int max = maxSubArrSum_brute(arr);
 
         System.out.println(max);
 

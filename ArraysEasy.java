@@ -719,11 +719,74 @@ public class ArraysEasy {
         return max;
     }
 
+    public static int[] rearrange_arr_brute(int[] arr){
+
+        ArrayList<Integer> pos = new ArrayList<>();
+        ArrayList<Integer> neg = new ArrayList<>();
+
+        for(int i = 0;i < arr.length;i++){
+            if(arr[i] > 0){
+                pos.add(arr[i]);
+            }
+            else{
+                neg.add(arr[i]);
+            }
+        }
+
+        /*
+        for(int i = 0;i < arr.length/2;i++){    // arr.length/2 cause we know there are equal nums of +ves and -ves
+            arr[2 * i] = pos.get(i);
+            arr[(2*i) +1] = neg.get(i); 
+        }
+        */
+
+
+        //if unequal no. of =ves and -ves are given:
+        
+        int i = 0, p = 0, n = 0;
+
+        while (p < pos.size() && n < neg.size()) {
+            arr[i++] = pos.get(p++);
+            arr[i++] = neg.get(n++);
+        }
+
+        while (p < pos.size()) {
+            arr[i++] = pos.get(p++);
+        }
+
+        while (n < neg.size()) {
+            arr[i++] = neg.get(n++);
+        }
+
+        return arr;
+    }
+
+    public static int[] rearrange_arr_better(int[] arr){  //only valid if equal nos. of +ves and -ves
+
+        int[] ans = new int[arr.length];
+
+        int posIndex = 0;
+        int negIndex = 1;
+
+        for(int i = 0;i < arr.length;i++){
+            if(arr[i] > 0){
+                ans[posIndex] = arr[i];
+                posIndex += 2;
+            }
+            else{
+                ans[negIndex] = arr[i];
+                negIndex += 2;
+            }
+        }
+
+        return ans;
+    }
+
  
 
     public static void main(String[] args) {
         
-        int[] arr = new int[]{-2,-3,4,-1,-2,1,5,-3};
+        int[] arr = new int[]{-2,-3,4,-1,-2,1,5,7};
         //int t = 18; 
         //int[] arr1 = new int[]{0,1,1,1,0,0,1,1,0,0,1};
 
@@ -806,13 +869,17 @@ public class ArraysEasy {
 
         //int max = maxSubArrSum_opt_kadane_algo(arr);
 
-        int max = maxSubArrSum_opt_kadane_algo_idx(arr);
+        //int max = maxSubArrSum_opt_kadane_algo_idx(arr);
 
-        System.out.println(max);
+        //System.out.println(max);
 
-        // for (int i = 0; i <arr.length; i++) {
-        //     System.out.print(arr[i] + " ");
-        // }
+        //int[] t_arr = rearrange_arr_brute(arr); 
+
+        int[] t_arr = rearrange_arr_better(arr);
+
+        for (int i = 0; i <t_arr.length; i++) {
+             System.out.print(t_arr[i] + " ");
+        }
 
 
         System.err.println("");

@@ -761,7 +761,7 @@ public class ArraysEasy {
         return arr;
     }
 
-    public static int[] rearrange_arr_better(int[] arr){  //only valid if equal nos. of +ves and -ves
+    public static int[] rearrange_arr_optimal(int[] arr){  //only valid if equal nos. of +ves and -ves
 
         int[] ans = new int[arr.length];
 
@@ -781,6 +781,7 @@ public class ArraysEasy {
 
         return ans;
     }
+
 
  
 

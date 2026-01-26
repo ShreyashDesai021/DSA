@@ -141,8 +141,9 @@ public class BinarySearch{
         return ceil;
     }
 
-    public static int[] searchRange(int[] arr, int target) { //first and last occurence
+    public static int[] searchRange(int[] arr, int target) { //first and last occurence using standard BS
         int first = findFirst(arr, target);
+        if(first == -1) return new int[]{-1,-1}; //saves logarithmic of time coz if first occurence doesnt existsthen last also wont
         int last = findLast(arr, target);
         return new int[]{first, last};
     }
@@ -154,7 +155,7 @@ public class BinarySearch{
         while (low <= high) {
             int mid = low + (high - low) / 2;
 
-            if (arr[mid] == target) {  //we cant use >= coz we have to updaye only if equal
+            if (arr[mid] == target) { 
                 ans = mid;
                 high = mid - 1;   // move left
             } else if (arr[mid] > target) {
@@ -173,7 +174,7 @@ public class BinarySearch{
         while (low <= high) {
             int mid = low + (high - low) / 2;
 
-            if (arr[mid] == target) { //we cant use >= coz we have to updaye only if equa
+            if (arr[mid] == target) { 
                 ans = mid;
                 low = mid + 1;    // move right
             } else if (arr[mid] > target) {
@@ -183,6 +184,27 @@ public class BinarySearch{
             }
         }
         return ans;
+    }
+
+    public static int countOccurence(int[] arr, int target) { //subract first and last occurence to count total occurences
+        int first = findFirst(arr, target);
+        if(first == -1) return 0; //saves logarithmic of time coz if first occurence doesnt existsthen last also wont
+        int last = findLast(arr, target);
+        int occurences = last - first + 1; 
+        return occurences;
+    }
+
+    public static int[] searchRange_using_LB_UB(int[] arr, int target) { //USING LB na dUB
+        int first = lowerBound(arr, target);
+
+        // If target not present
+        if (first == arr.length || arr[first] != target) {
+            return new int[]{-1, -1};
+        }
+
+        int last = upperBound(arr, target) - 1;
+
+        return new int[]{first, last};
     }
 
 
@@ -195,7 +217,7 @@ public class BinarySearch{
         }
         System.out.println("");
 
-        int target = 7;
+        int target = 4;
 
         //int num = bsIterative(arr, target);
 
@@ -214,12 +236,17 @@ public class BinarySearch{
         //int num = findCeil(arr,key);
 
         //System.out.println(num);
-        int[] res = searchRange(arr,target);
+        //int[] res = searchRange(arr,target);
 
-        for(int x : res){
-            System.out.print(x + " ");
-        }
-        System.out.println("");
+        //int[] res = searchRange_using_LB_UB(arr,target);
+
+        int occurences = countOccurence(arr,target);
+        System.out.println(occurences);
+
+        // for(int x : res){
+        //     System.out.print(x + " ");
+        // }
+        // System.out.println("");
 
 
     }

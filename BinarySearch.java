@@ -207,23 +207,54 @@ public class BinarySearch{
         return new int[]{first, last};
     }
 
+    public static int searchInRotatedArray(int[] arr,int target){
+       
+        int low = 0;
+        int high = arr.length - 1;
+        
 
+        while(low <= high){
+            int mid = low + (high-low)/2;
+
+            if(arr[mid] == target){
+                return mid;
+            }
+            if (arr[low] <= arr[mid]) { // left array is sorted
+                if(arr[low] <= target && target < arr[mid]){ // If target lies within sorted left part
+                    high = mid -1;
+                }else {
+                    low = mid + 1;
+                }
+            }else{ //right array is sorted
+                if(arr[mid] < target && target <= arr[high]){
+                    low = mid + 1;
+                }else{
+                    high = mid - 1;
+                }
+
+            }
+        
+        }
+        return -1;                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                return -1;
+    }
 
     public static void main(String[] args){
-        int[] arr = {3, 4, 4, 7, 8, 10};
+        int[] arr = {6, 7, 8, 1, 2, 3, 4, 5};
 
         for(int x : arr){
             System.out.print(x + " ");
         }
         System.out.println("");
 
-        int target = 4;
+        int target = 1;
 
         //int num = bsIterative(arr, target);
 
         //int num = bsRecursive(arr, target, 0, arr.length - 1);
 
-        int key = 1;
+        //int key = 1;
 
         //int num = lowerBound(arr, key);
 
@@ -240,8 +271,12 @@ public class BinarySearch{
 
         //int[] res = searchRange_using_LB_UB(arr,target);
 
-        int occurences = countOccurence(arr,target);
-        System.out.println(occurences);
+        //int occurences = countOccurence(arr,target);
+        //System.out.println(occurences);
+
+        int num = searchInRotatedArray(arr,target);
+
+        System.out.println(num);
 
         // for(int x : res){
         //     System.out.print(x + " ");

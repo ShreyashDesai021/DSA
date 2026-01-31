@@ -55,6 +55,15 @@ public class LL{
         return false;
     } 
 
+    public static Node deleteHeadLL(Node head){
+        if(head == null) return null; // if empty LL
+
+        Node temp = head; //temp points head
+        head = head.next; // head moves to next node
+        temp.next = null; // temp i.e previously head is deleted // optional
+        return head; // new head is returned
+    }
+
     public static void main(String[] args) {
         // Node one = new Node(4);
         // System.out.println(one.data);
@@ -63,13 +72,16 @@ public class LL{
         Node head = convertArr2LL(arr);
         //System.out.println(head.data);
 
-        //traverseLL(head);
-
+        traverseLL(head);
+        System.out.println("");
         //int length_of_LL = lengthLL(head);
         //System.out.println(length_of_LL);
 
-        int target = 7;
-        System.out.println(searchElement(head, target));
+        //int target = 7;
+        //System.out.println(searchElement(head, target));
+
+        head = deleteHeadLL(head);
+        traverseLL(head);
 
 
     }

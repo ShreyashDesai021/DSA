@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Strings {
     public static String removeOuterParentheses(String s){
         StringBuilder res = new StringBuilder();
@@ -19,7 +21,6 @@ public class Strings {
         return res.toString(); // dont forget // res is an object of type StringBuilder, not String, hence we convert the object to string and then return
     
     }
-
 
     public static String reverseWords(String s) {
         StringBuilder ans = new StringBuilder();
@@ -75,6 +76,29 @@ public class Strings {
         // If no odd digit is found, return an empty string
         return "";
     }
+
+    public String longestCommonPrefix(String[] strs){
+        if (strs == null || strs.length == 0) return ""; // to save time if edge case
+        StringBuilder ans = new StringBuilder();
+
+        Arrays.sort(strs); // strs is given in form of array of strings , so we can sort directly
+
+        // after sorting we will compare how many prefix letters of first and last letter are common and we will get our solution
+        String first = strs[0]; // take first string from the array
+        String last = strs[strs.length - 1]; // take the last string from the array
+
+        for(int i = 0; i < Math.min(first.length(),last.length());i++){
+            if(first.charAt(i) != last.charAt(i)){
+                return ans.toString(); 
+            }
+            ans.append(first.charAt(i));
+        }
+
+        return ans.toString(); // cant return "", coz if there is a array with single string having single letter it will give error e.g strs =["a"]; 
+    }
+
+    
+
 
     public static void main(String[] args) {
         //String s = "(()())(())";

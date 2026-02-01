@@ -64,6 +64,77 @@ public class LL{
         return head; // new head is returned
     }
 
+    public static Node deleteTailLL(Node head){
+        if(head == null || head.next == null) return null;
+        Node temp = head;
+
+        while(temp.next.next != null){
+            temp = temp.next;
+        }
+        temp.next = null;
+
+        return head;
+    }
+
+    public static Node deleteKthNodeLL(Node head,int k){ // based on position
+        if(head == null) return null;
+
+        if(k==1){ // deleting head
+            return deleteHeadLL(head);
+        }
+
+        // Node temp = head;
+        // Node prev = null;
+        // int count = 1;
+
+        // while(temp != null){
+        //     if(count == k){
+        //         prev.next = prev.next.next;
+        //         break;
+        //     }
+        //     prev = temp;
+        //     temp = temp.next;
+        //     count++;
+        // }
+        // return head;
+
+        Node temp = head;
+        int count = 1;
+
+        while(temp != null && count < k-1){ // go this (k-1)th Node
+            temp = temp.next;
+            count++;
+        }
+
+        if(temp != null && temp.next != null){
+            temp.next = temp.next.next;
+        }
+
+        return head;
+    }
+
+    public static Node deleteValLL(Node head,int val){
+        if(head == null) return null; // empty LL
+
+        if(head.data == val){ // head is val and is to be deleted
+            head = head.next;
+            return head;
+        }
+
+        Node temp = head;
+        while(temp.next != null){ // go till the node before the one to be deleted, and then delete it
+            if(temp.next.data == val){
+                temp.next = temp.next.next;
+                break;
+            }
+            temp = temp.next;
+        }
+
+        return head;
+    }
+
+
+
     public static void main(String[] args) {
         // Node one = new Node(4);
         // System.out.println(one.data);
@@ -80,9 +151,19 @@ public class LL{
         //int target = 7;
         //System.out.println(searchElement(head, target));
 
-        head = deleteHeadLL(head);
-        traverseLL(head);
+        // head = deleteHeadLL(head);
+        // traverseLL(head);
 
+        // head = deleteTailLL(head);
+        // traverseLL(head);
+
+        // head = deleteKthNodeLL(head, 1);
+        // traverseLL(head);
+
+        // head = deleteValLL(head,92);
+        // traverseLL(head);
+
+        
 
     }
 }

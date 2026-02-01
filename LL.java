@@ -133,6 +133,78 @@ public class LL{
         return head;
     }
 
+    public static Node insertHeadLL(Node head,int val){
+        Node temp = new Node(val);
+        temp.next = head;
+        head = temp;
+        return head;
+    }
+
+    public static Node insertTailLL(Node head,int val){
+        Node newNode = new Node(val);
+        if(head == null) return newNode;
+
+        Node temp = head;
+        while(temp.next != null){
+            temp = temp.next;
+        }
+        temp.next = newNode;
+        // newNode.next = null; //already initialized to null by constructor
+
+        return head;
+
+    }
+
+    public static Node insertKthpos(Node head,int val,int k){
+        Node newNode = new Node(val);
+ 
+        if(k <= 0) return head;
+
+        if(k == 1){ // insertion at head
+            return insertHeadLL(head, val);
+        }
+
+        Node temp = head;
+        int count = 1;
+
+        while(temp != null && count < k - 1){
+            temp = temp.next;
+            count++;
+        }
+
+        if(temp != null){
+            newNode.next = temp.next;
+            temp.next = newNode;
+        }
+
+        return head;
+
+    }
+
+    public static Node insertBeforeGivenVal(Node head,int newVal,int targetVal){
+        if (head == null) return null;
+
+
+        Node newNode = new Node(newVal);
+        Node temp =head;
+
+        if(head.data == targetVal){
+            newNode.next = head;
+            head = newNode;
+            return head;
+        }
+
+        while(temp.next != null){
+            if(temp.next.data == targetVal){
+                newNode.next = temp.next;
+                temp.next = newNode;
+                break; 
+            }
+            temp = temp.next;
+        }
+
+        return head;
+    }
 
 
     public static void main(String[] args) {
@@ -163,7 +235,19 @@ public class LL{
         // head = deleteValLL(head,92);
         // traverseLL(head);
 
-        
+        // head = insertHeadLL(head, 1);
+        // traverseLL(head);
+
+        // head = insertTailLL(head, 10);
+        // traverseLL(head);
+
+        // head = insertKthpos(head, 15, 5);
+        // traverseLL(head);
+
+        head = insertBeforeGivenVal(head,10,6);
+        traverseLL(head);
+
+        System.out.println("");
 
     }
 }

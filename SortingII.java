@@ -23,7 +23,7 @@ public class SortingII{
         int i = 0;
 
         while(left <= mid && right <= high){ // comparing and merging two subarrays
-            if(arr[left] <= arr[right]){ // can be written as < to make it stable
+            if(arr[left] <= arr[right]){ // can be written as <= to make it stable
                 temp[i] = arr[left];
                 i++;
                 left++;

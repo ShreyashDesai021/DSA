@@ -1,45 +1,34 @@
-import java.util.*;
-
-public class SQ {
-    // Array to hold elements
+class ArrayStack {
     private int[] stackArray;
-    // Maximum capacity
     private int capacity;
-    // Index of top element
     private int topIndex;
 
     // Constructor
-    public SQ(int size) {
-        capacity = size;
+    public ArrayStack() {
+        capacity = 1000;
         stackArray = new int[capacity];
-        // Initialize stack as empty
         topIndex = -1;
     }
 
-    public SQ() {
-        this(1000);
-    }
-
-    // Pushes element x 
+    // Push element
     public void push(int x) {
-        if (topIndex >= capacity - 1) {
+        if (topIndex == capacity - 1) {
             System.out.println("Stack overflow");
             return;
         }
         stackArray[++topIndex] = x;
     }
 
-    // Removes and returns top element
+    // Pop element
     public int pop() {
         if (isEmpty()) {
             System.out.println("Stack is empty");
-            // Return invalid value
             return -1;
         }
         return stackArray[topIndex--];
     }
 
-    // Returns top element
+    // Peek top element
     public int top() {
         if (isEmpty()) {
             System.out.println("Stack is empty");
@@ -48,37 +37,25 @@ public class SQ {
         return stackArray[topIndex];
     }
 
-    /* Returns true if the 
-       stack is empty, false otherwise */
+    // Check empty
     public boolean isEmpty() {
         return topIndex == -1;
     }
+}
 
-    // Main function
+public class SQ {
     public static void main(String[] args) {
-        SQ stack = new SQ();
-        List<String> commands = Arrays.asList("ArrayStack", "push", "push", "top", "pop", "isEmpty");
-        List<List<Integer>> inputs = Arrays.asList(Arrays.asList(), Arrays.asList(5), Arrays.asList(10), Arrays.asList(), Arrays.asList(), Arrays.asList());
+        ArrayStack stack = new ArrayStack();
 
-        for (int i = 0; i < commands.size(); ++i) {
-            switch (commands.get(i)) {
-                case "push":
-                    stack.push(inputs.get(i).get(0));
-                    System.out.print("null ");
-                    break;
-                case "pop":
-                    System.out.print(stack.pop() + " ");
-                    break;
-                case "top":
-                    System.out.print(stack.top() + " ");
-                    break;
-                case "isEmpty":
-                    System.out.print((stack.isEmpty() ? "true" : "false") + " ");
-                    break;
-                case "ArrayStack":
-                    System.out.print("null ");
-                    break;
-            }
-        }
+        stack.push(5);
+        stack.push(10);
+
+        System.out.println(stack.top());     // 10
+        System.out.println(stack.pop());     // 10
+        System.out.println(stack.top());     // 5
+        System.out.println(stack.isEmpty()); // false
+
+        stack.pop();
+        System.out.println(stack.isEmpty()); // true
     }
 }

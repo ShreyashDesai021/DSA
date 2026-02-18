@@ -3,14 +3,12 @@ class ArrayStack {
     private int capacity;
     private int topIndex;
 
-    // Constructor
     public ArrayStack() {
         capacity = 1000;
         stackArray = new int[capacity];
         topIndex = -1;
     }
 
-    // Push element
     public void push(int x) {
         if (topIndex == capacity - 1) {
             System.out.println("Stack overflow");
@@ -19,7 +17,6 @@ class ArrayStack {
         stackArray[++topIndex] = x;
     }
 
-    // Pop element
     public int pop() {
         if (isEmpty()) {
             System.out.println("Stack is empty");
@@ -28,7 +25,6 @@ class ArrayStack {
         return stackArray[topIndex--];
     }
 
-    // Peek top element
     public int top() {
         if (isEmpty()) {
             System.out.println("Stack is empty");
@@ -37,18 +33,17 @@ class ArrayStack {
         return stackArray[topIndex];
     }
 
-    // Check empty
     public boolean isEmpty() {
         return topIndex == -1;
     }
 }
 
+// Implementation of Circular Queue using Arrays
 class ArrayQueue {
-    int[] arr;
-    int start, end;
-    int currSize, maxSize;
+    private int[] arr;
+    private int start, end;
+    private int currSize, maxSize;
 
-    // Constructor
     public ArrayQueue() {
         maxSize = 10;
         arr = new int[maxSize];
@@ -57,7 +52,6 @@ class ArrayQueue {
         currSize = 0;
     }
 
-    // Enqueue
     public void push(int x) {
         if (currSize == maxSize) {
             System.out.println("Queue is full");
@@ -75,7 +69,6 @@ class ArrayQueue {
         currSize++;
     }
 
-    // Dequeue
     public int pop() {
         if (isEmpty()) {
             System.out.println("Queue is empty");
@@ -95,7 +88,6 @@ class ArrayQueue {
         return value;
     }
 
-    // Front element
     public int peek() {
         if (isEmpty()) {
             System.out.println("Queue is empty");
@@ -104,39 +96,37 @@ class ArrayQueue {
         return arr[start];
     }
 
-    // Empty check
     public boolean isEmpty() {
         return currSize == 0;
     }
 }
 
-
 public class SQ {
     public static void main(String[] args) {
+        // --- Stack Operations ---
+        System.out.println("--- Stack Testing ---");
         ArrayStack stack = new ArrayStack();
-
         stack.push(5);
         stack.push(10);
 
-        System.out.println(stack.top());     // 10
-        System.out.println(stack.pop());     // 10
-        System.out.println(stack.top());     // 5
-        System.out.println(stack.isEmpty()); // false
-
+        System.out.println("Top element: " + stack.top());    // 10
+        System.out.println("Popped: " + stack.pop());         // 10
+        System.out.println("Top element: " + stack.top());    // 5
+        System.out.println("Is empty? " + stack.isEmpty());   // false
         stack.pop();
-        System.out.println(stack.isEmpty()); // true
+        System.out.println("Is empty? " + stack.isEmpty());   // true
 
+        System.out.println("\n--- Queue Testing ---");
+        // --- Queue Operations ---
         ArrayQueue queue = new ArrayQueue();
-
         queue.push(5);
         queue.push(10);
 
-        System.out.println(queue.peek());     // 5
-        System.out.println(queue.pop());      // 5
-        System.out.println(queue.peek());     // 10
-        System.out.println(queue.isEmpty());  // false
-
+        System.out.println("Front element: " + queue.peek()); // 5
+        System.out.println("Popped: " + queue.pop());        // 5
+        System.out.println("Front element: " + queue.peek()); // 10
+        System.out.println("Is empty? " + queue.isEmpty());  // false
         queue.pop();
-        System.out.println(queue.isEmpty());  // true
+        System.out.println("Is empty? " + queue.isEmpty());  // true
     }
 }

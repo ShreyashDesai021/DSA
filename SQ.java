@@ -50,15 +50,90 @@ class StackArray{
 }
 
 class QueueArray{
-        // Array to store queue elements
+    //     // Array to store queue elements
+    // int[] arr;
+    // // Indices for start and end of the queue
+    // int start, end;
+    // // Current size and maximum size of the queue
+    // int currSize, maxSize;
+
+    // // Constructor
+    // public QueueArray() {
+    //     arr = new int[10];
+    //     start = -1;
+    //     end = -1;
+    //     currSize = 0;
+    //     maxSize = 10;
+    // }
+
+    // // Method to push an element into the queue
+    // public void push(int x) {
+    //     // Check if the queue is full
+    //     if (currSize == maxSize) {
+    //         System.out.println("Queue is full\nExiting...");
+    //         System.exit(1);
+    //     }
+
+    //     // If the queue is empty, initialize start and end
+    //     if (end == -1) {
+    //         start = 0;
+    //         end = 0;
+    //     } 
+    //     else {
+    //         // Circular increment of end
+    //         end = (end + 1) % maxSize;
+    //     }
+
+    //     arr[end] = x;
+    //     currSize++;
+    // }
+
+    // // Method to pop an element from the queue
+    // public int pop() {
+    //     // Check if the queue is empty
+    //     if (start == -1) {
+    //         System.out.println("Queue Empty\nExiting...");
+    //         System.exit(1);
+    //     }
+    //     int popped = arr[start];
+
+    //     // If the queue has only one element, reset start and end
+    //     if (currSize == 1) {
+    //         start = -1;
+    //         end = -1;
+    //     } 
+    //     else {
+    //         // Circular increment of start
+    //         start = (start + 1) % maxSize;
+    //     }
+
+    //     currSize--;
+    //     return popped;
+    // }
+
+    // // Method to get the front element of the queue
+    // public int peek() {
+    //     // Check if the queue is empty
+    //     if (start == -1) {
+    //         System.out.println("Queue is Empty");
+    //         System.exit(1);
+    //     }
+    //     return arr[start];
+    // }
+
+    // // Method to determine whether the queue is empty
+    // public boolean isEmpty() {
+    //     return (currSize == 0);
+    // }
+
+
     int[] arr;
-    // Indices for start and end of the queue
-    int start, end;
-    // Current size and maximum size of the queue
+
+    int start,end;
+
     int currSize, maxSize;
 
-    // Constructor
-    public QueueArray() {
+    public QueueArray(){
         arr = new int[10];
         start = -1;
         end = -1;
@@ -66,21 +141,27 @@ class QueueArray{
         maxSize = 10;
     }
 
-    // Method to push an element into the queue
-    public void push(int x) {
-        // Check if the queue is full
-        if (currSize == maxSize) {
-            System.out.println("Queue is full\nExiting...");
-            System.exit(1);
+    public boolean isEmpty() {
+        return (currSize == 0);
+    }
+
+    public boolean isFull(){
+        return (currSize == maxSize);
+    }
+
+    public void push(int x){
+
+        if(isFull()){
+            System.out.println("Queue is Full");
+            return;
         }
 
-        // If the queue is empty, initialize start and end
-        if (end == -1) {
+        if(isEmpty()){
             start = 0;
             end = 0;
-        } 
+        }
+
         else {
-            // Circular increment of end
             end = (end + 1) % maxSize;
         }
 
@@ -88,43 +169,36 @@ class QueueArray{
         currSize++;
     }
 
-    // Method to pop an element from the queue
-    public int pop() {
-        // Check if the queue is empty
-        if (start == -1) {
-            System.out.println("Queue Empty\nExiting...");
-            System.exit(1);
+    public int pop(){
+        if(isEmpty()){
+            System.out.println("Queue is Empty");
+            return -1;
         }
+
         int popped = arr[start];
 
-        // If the queue has only one element, reset start and end
-        if (currSize == 1) {
+        if(currSize == 1){
             start = -1;
             end = -1;
-        } 
-        else {
-            // Circular increment of start
+        }
+        else{
             start = (start + 1) % maxSize;
         }
 
         currSize--;
         return popped;
+
     }
 
-    // Method to get the front element of the queue
-    public int peek() {
-        // Check if the queue is empty
-        if (start == -1) {
+    public int peek(){
+        if(isEmpty()){
             System.out.println("Queue is Empty");
-            System.exit(1);
+            return -1;
         }
         return arr[start];
     }
 
-    // Method to determine whether the queue is empty
-    public boolean isEmpty() {
-        return (currSize == 0);
-    }
+
 }
 
 public class SQ {
@@ -190,8 +264,8 @@ public class SQ {
         q.push(100);
         q.push(110); // Queue should be full now (Size 10)
 
-        // 5. Test Overflow (Triggering the System.exit)
-        // q.push(120); // Uncomment to test Overflow crash
+        // 5. Test Overflow 
+        q.push(120); // Uncomment to test Overflow crash
 
         System.out.println("Queue size: " + q.currSize);
         

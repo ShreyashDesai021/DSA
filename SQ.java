@@ -257,6 +257,60 @@ class StackLL{
     }
 }
 
+class QueueLL{
+    private Node start;
+    private Node end;
+    private int size;
+
+    public QueueLL(){
+        start = end = null;
+        size = 0;
+    }
+
+    public boolean isEmpty(){
+        return (size == 0);
+    }
+
+    public void push(int x){
+        Node element = new Node(x);
+
+        if(isEmpty()){
+            start = end = element;
+        }else{
+            end.next = element;
+            end = element;
+        }
+
+        size++;
+
+    }
+
+    public int pop(){
+        if(isEmpty()){
+            System.out.println("Queue is Empty");
+            return -1;
+        }
+
+        int value = start.val;
+        Node temp = start;
+        start = start.next;
+        temp = null;
+        size--;
+
+        return value;
+
+    }
+
+    public int peek(){
+        if(isEmpty()){
+            System.out.println("Queue is Empty");
+            return -1;
+        }
+
+        return start.val;
+    }
+}
+
 public class SQ {
 
     public static void main(String[] args) {
@@ -356,6 +410,32 @@ public class SQ {
         // 6. Test Underflow
         System.out.print("Testing pop on empty stack: ");
         stack2.pop(); // Should print "Stack is Empty"
+
+        QueueLL queue = new QueueLL();
+
+        // 1. PUSH (Enqueue)
+        System.out.println("Pushing: 10, 20, 30");
+        queue.push(10);
+        queue.push(20);
+        queue.push(30);
+
+        // 2. PEEK (Front of the line)
+        System.out.println("Front element (peek): " + queue.peek()); // Should be 10
+
+        // 3. POP (Dequeue)
+        System.out.println("Popped: " + queue.pop()); // Removes 10
+        System.out.println("New Front: " + queue.peek()); // Should be 20
+
+        // 4. Check Size and Empty status
+        System.out.println("Is queue empty? " + queue.isEmpty());
+
+        // 5. Emptying the queue to test nulling start/end
+        queue.pop(); // Removes 20
+        queue.pop(); // Removes 30
+
+        // 6. Test Underflow
+        System.out.print("Testing pop on empty queue: ");
+        queue.pop(); // Should print "Queue is Empty"
         
     }
 }

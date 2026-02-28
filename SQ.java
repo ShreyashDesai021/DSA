@@ -1,3 +1,7 @@
+
+import java.util.*;
+
+
 class StackArray{
     int[] arr;
     int capacity;
@@ -311,6 +315,96 @@ class QueueLL{
     }
 }
 
+class StackUsingQueue{
+
+   // Queue<Integer> q = new Queue<>();
+
+   /*The code snippet Queue<Integer> q = new Queue<>(); is invalid in Java because 
+   Queue is an interface and cannot be instantiated directly. You must instantiate 
+   a concrete class that implements the Queue interface, such as LinkedList or PriorityQueue.*/
+
+   Queue<Integer> q = new LinkedList<>();
+
+    public void push(int x){
+        int s = q.size();
+
+        q.add(x);
+
+        for(int i = 0;i < s;i++){
+            q.add(q.poll());
+        }
+    }
+
+    public int pop(){
+        int n = q.peek();
+
+        q.poll();
+
+        return n;
+    }
+
+    public int top(){
+        return q.peek();
+    }
+
+    public boolean isEmpty(){
+        return q.isEmpty();
+    }
+
+}
+
+class QueueUsingStack{
+    private Stack<Integer> st1,st2;
+
+    public QueueUsingStack(){
+        st1 = new Stack<>();
+        st2 = new Stack<>();
+    }
+
+    /*
+    st1 -> st2
+    x -> st1
+    st2 -> st1
+    */
+
+    public void push(int x){
+        while(!st1.isEmpty()){
+            st2.push(st1.pop());
+        }
+
+        st1.push(x);
+
+        while(!st2.isEmpty()){
+            st1.push(st2.pop());
+        }
+    }
+
+    public int pop(){
+        if(st1.isEmpty()){
+            System.out.println("Stack is Empty");
+            return -1;
+        }
+
+        int topElement = st1.pop();
+
+        return topElement;
+    }
+
+    public int peek() {
+        // Edge case
+        if (st1.isEmpty()) {
+            System.out.println("Stack is empty");
+            return -1; 
+        }
+
+        return st1.peek();
+    }
+
+    public boolean isEmpty() {
+        return st1.isEmpty();
+    }
+}
+
 public class SQ {
 
     public static void main(String[] args) {
@@ -437,5 +531,42 @@ public class SQ {
         System.out.print("Testing pop on empty queue: ");
         queue.pop(); // Should print "Queue is Empty"
         
+        StackUsingQueue myStack = new StackUsingQueue();
+
+        // 1. PUSH elements
+        System.out.println("Pushing: 1, 2, 3");
+        myStack.push(1);
+        myStack.push(2);
+        myStack.push(3);
+
+        // 2. TOP (Should be 3 because it was the last one pushed)
+        System.out.println("Current Top: " + myStack.top());
+
+        // 3. POP (Should follow LIFO: 3, then 2, then 1)
+        System.out.println("Popped: " + myStack.pop()); // Removes 3
+        System.out.println("Popped: " + myStack.pop()); // Removes 2
+
+        // 4. Final check
+        System.out.println("New Top: " + myStack.top()); // Should be 1
+        System.out.println("Is empty? " + myStack.isEmpty());
+
+        QueueUsingStack myQueue = new QueueUsingStack();
+
+        // 1. ENQUEUE (Push)
+        System.out.println("Pushing: 10, 20, 30");
+        myQueue.push(10);
+        myQueue.push(20);
+        myQueue.push(30);
+
+        // 2. PEEK (Should be 10 - FIFO)
+        System.out.println("Front element: " + myQueue.peek());
+
+        // 3. DEQUEUE (Pop)
+        System.out.println("Popped: " + myQueue.pop()); // Removes 10
+        System.out.println("Popped: " + myQueue.pop()); // Removes 20
+
+        // 4. Final state check
+        System.out.println("New Front: " + myQueue.peek()); // Should be 30
+        System.out.println("Is queue empty? " + myQueue.isEmpty());
     }
 }

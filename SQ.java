@@ -198,7 +198,63 @@ class QueueArray{
         return arr[start];
     }
 
+}
 
+class Node{
+    int val;
+    Node next;
+    public Node(int data){
+        val = data;
+        next = null;
+    }
+}
+
+
+class StackLL{
+    private Node head;
+    private int size;
+
+    public StackLL(){
+        head = null;
+        size = 0;
+    }
+
+    public void push(int x){
+        Node element = new Node(x);
+
+        element.next = head;
+        head = element;
+
+        size++;
+    }
+
+    public int pop(){
+        if(head == null){
+            System.out.println("Stack is Empty");
+            return -1;
+        }
+
+        int value = head.val;
+        Node temp = head;
+        head = head.next;
+        temp = null;
+        size--;
+
+        return value;
+    }
+
+    public int top(){
+        if(head == null){
+            System.out.println("Stack is Empty");
+            return -1;
+        }
+
+        return head.val;
+    }
+
+    public boolean isEmpty(){
+        return (size == 0);
+    }
 }
 
 public class SQ {
@@ -274,6 +330,32 @@ public class SQ {
         while(!q.isEmpty()) {
             System.out.print(q.pop() + " ");
         }
+
+        StackLL stack2 = new StackLL();
+
+        // 1. PUSH elements
+        System.out.println("\nPushing: 10, 20, 30");
+        stack2.push(10);
+        stack2.push(20);
+        stack2.push(30);
+
+        // 2. TOP (Peek)
+        System.out.println("Current Top: " + stack2.top()); // Should be 30
+
+        // 3. POP elements
+        System.out.println("Popped: " + stack2.pop()); // Removes 30
+        System.out.println("New Top: " + stack2.top()); // Should be 20
+
+        // 4. Check if Empty
+        System.out.println("Is stack empty? " + stack2.isEmpty());
+
+        // 5. Empty the stack
+        stack2.pop(); // Removes 20
+        stack2.pop(); // Removes 10
+
+        // 6. Test Underflow
+        System.out.print("Testing pop on empty stack: ");
+        stack2.pop(); // Should print "Stack is Empty"
         
     }
 }

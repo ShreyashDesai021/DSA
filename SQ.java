@@ -616,5 +616,7 @@ public class SQ {
         
         System.out.println("Top element: " + minStack.top());    // Should be 20
         System.out.println("New Min: " + minStack.getMin());     // Should be 10
+    
+    
     }
 }

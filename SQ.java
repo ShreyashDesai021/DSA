@@ -601,5 +601,20 @@ public class SQ {
         // 4. Final state check
         System.out.println("New Front: " + myQueue.peek()); // Should be 30
         System.out.println("Is queue empty? " + myQueue.isEmpty());
+
+        MinStackBrute minStack = new MinStackBrute();
+
+        minStack.push(10);
+        minStack.push(20);
+        minStack.push(5);
+        minStack.push(8);
+
+        System.out.println("Current Min: " + minStack.getMin()); // Should be 5
+        
+        minStack.pop();
+        minStack.pop(); // Removed 8 and 5
+        
+        System.out.println("Top element: " + minStack.top());    // Should be 20
+        System.out.println("New Min: " + minStack.getMin());     // Should be 10
     }
 }

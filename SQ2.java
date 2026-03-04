@@ -169,6 +169,24 @@ public class SQ2{
         return ans.toString();
     }
 
+    public static String infixToPrefix(String infix) {
+
+        StringBuilder rev = new StringBuilder(infix).reverse();
+
+        for(int i=0;i<rev.length();i++){
+            if(rev.charAt(i)=='(')
+                rev.setCharAt(i, ')');
+            else if(rev.charAt(i)==')')
+                rev.setCharAt(i, '(');
+        }
+
+        String postfix = infixToPostfix(rev.toString());
+
+        return new StringBuilder(postfix).reverse().toString();
+    }
+
+
+
     public static void main(String[] args) {
         //String s = "()[{}()]";
         //String s = "()[{}(])";
@@ -193,9 +211,11 @@ public class SQ2{
 
         String s = "a+b*(c^d-e)";
 
-        String str = infixToPostfix(s);
+        //String str = infixToPostfix(s);
 
-        System.out.println(str);
+        //System.out.println(str);
 
+        String prefix = infixToPrefix(s);
+        System.out.println(prefix);
     }
 }

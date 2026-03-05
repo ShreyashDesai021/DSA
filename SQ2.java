@@ -115,6 +115,9 @@ public class SQ2{
     }
 
     //two pointer approach for trapping rain water T = O(n) , S = O(1) is more effiecient will do it later
+    
+    
+    //infix ,prefix,postfix
     public static int priority(char c){
         if(c == '^'){ 
             return 3;
@@ -169,6 +172,48 @@ public class SQ2{
         return ans.toString();
     }
 
+    public static String infixToPostfix1(String s){
+
+        Stack<Character> st = new Stack<>();
+        StringBuilder ans = new StringBuilder();
+
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+
+            // operand
+            if(Character.isLetterOrDigit(c)){
+                ans.append(c);
+            }
+
+            else if(c == '('){
+                st.push(c);
+            }
+
+            else if(c == ')'){
+                while(!st.isEmpty() && st.peek() != '('){
+                    ans.append(st.pop());
+                }
+                st.pop(); // remove '('
+            }
+
+            else { // operator
+
+                while(!st.isEmpty() && (priority(c) < priority(st.peek()) ||
+                    (priority(c) == priority(st.peek()) && c != '^')))
+                {
+                    ans.append(st.pop());
+                }
+                st.push(c);
+            }
+        }
+
+        while(!st.isEmpty()){
+            ans.append(st.pop());
+        }
+
+        return ans.toString();
+    }
+
     public static String infixToPrefix(String infix) {
 
         StringBuilder rev = new StringBuilder(infix).reverse();
@@ -180,7 +225,7 @@ public class SQ2{
                 rev.setCharAt(i, '(');
         }
 
-        String postfix = infixToPostfix(rev.toString());
+        String postfix = infixToPostfix1(rev.toString()); // this method also handles '^' edge case
 
         return new StringBuilder(postfix).reverse().toString();
     }

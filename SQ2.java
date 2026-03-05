@@ -277,13 +277,19 @@ public class SQ2{
 
         //System.out.println(trapPrefix(height));
 
-        String s = "a+b*(c^d-e)";
+        //String s = "a+b*(c^d-e)";
 
         //String str = infixToPostfix(s);
 
         //System.out.println(str);
 
-        String prefix = infixToPrefix(s);
-        System.out.println(prefix);
+        //String prefix = infixToPrefix(s);
+        //System.out.println(prefix);
+
+        String s = "AB-DE+F*/";
+
+        String infix = postfixToInfix(s);
+        System.out.println(infix);
+
     }
 }

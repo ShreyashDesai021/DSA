@@ -280,6 +280,31 @@ public class SQ2{
         return s.peek();
     }
 
+    public static String postfixToPrefix(String postfix) {
+        Stack<String> s = new Stack<>();
+        int n = postfix.length();
+
+        // Traverse the postfix expression from left to right
+        for (int i = 0; i < n; i++) {
+            char c = postfix.charAt(i);
+
+            // If the character is an operand, push it to the stack
+            if (Character.isLetterOrDigit(c)) {
+                s.push(String.valueOf(c));
+            } else {
+                // Pop two operands from the stack
+                String op2 = s.pop();
+                String op1 = s.pop();
+
+                // Form the new prefix expression and push back to stack
+                s.push(c + op1 + op2);
+            }
+        }
+
+        // The final element in the stack is the result
+        return s.peek();
+    }
+
     public static void main(String[] args) {
         //String s = "()[{}()]";
         //String s = "()[{}(])";
@@ -314,9 +339,13 @@ public class SQ2{
         //String s = "AB-DE+F*/";
         
         //String infix = postfixToInfix(s);
-        String prefix = "*+PQ-MN";
+        //String prefix = "*+PQ-MN";
 
-        String infix = prefixToInfix(prefix);
+        //String infix = prefixToInfix(prefix);
+
+        String postfix = "AB-DE+F*/";
+
+        String infix = postfixToPrefix(postfix);
 
         System.out.println(infix);
 

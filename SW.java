@@ -91,6 +91,30 @@ public class SW{
 
     }
 
+    public static int maxFruitsInBasketBetter(int[] arr){
+        Map<Integer, Integer> basket = new HashMap<>();
+
+        int l = 0;
+        int max = 0;
+
+        for(int r = 0;r < arr.length;r++){
+            basket.put(arr[r],basket.getOrDefault(arr[r],0) + 1);
+
+            while(basket.size() > 2){
+                basket.put(arr[l],basket.get(arr[l]) -1);
+
+                if(basket.get(arr[l]) == 0){
+                    basket.remove(arr[l]);
+                }
+
+                l++;
+            }
+            max = Math.max(max, r - l + 1);
+        }
+        return max;
+
+    }
+
     public static void main(String[] args) {
         String str = "cadbzabcd";
 
@@ -106,7 +130,9 @@ public class SW{
 
         int[] fruits = {3,3,3,1,2,1,1,2,3,3,4};
 
-        System.out.println(maxFruitsInBasketBrute(fruits));
+        //System.out.println(maxFruitsInBasketBrute(fruits));
+
+        System.out.println(maxFruitsInBasketBetter(fruits));
         
     }
 

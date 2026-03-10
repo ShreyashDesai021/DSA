@@ -67,6 +67,29 @@ public class SW{
         return maxLen;
     }
 
+    public static int maxFruitsInBasketBrute(int[] arr){
+        int max = 0;
+
+        for(int i = 0; i < arr.length;i++){
+            Set<Integer> basket = new HashSet<>();
+            
+            int count = 0;
+
+            for(int j = i;j < arr.length;j++){
+                basket.add(arr[j]);
+
+                if(basket.size() > 2){
+                    break;
+                }
+
+                count++;
+            }
+            max = Math.max(max,count);
+
+        }
+        return max;    
+
+    }
 
     public static void main(String[] args) {
         String str = "cadbzabcd";
@@ -77,10 +100,13 @@ public class SW{
 
         int k = 2;
 
-        System.out.println(maxZerosIIIbetter(arr, k));
+        //System.out.println(maxZerosIIIbetter(arr, k));
 
-        System.out.println(maxZerosIIIoptimal(arr, k));
+        //System.out.println(maxZerosIIIoptimal(arr, k));
 
+        int[] fruits = {3,3,3,1,2,1,1,2,3,3,4};
+
+        System.out.println(maxFruitsInBasketBrute(fruits));
         
     }
 

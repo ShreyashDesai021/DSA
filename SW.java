@@ -67,7 +67,7 @@ public class SW{
         return maxLen;
     }
 
-    public static int maxFruitsInBasketBrute(int[] arr){
+    public static int maxFruitsInBasketBrute(int[] arr){ // T = O(N^2)
         int max = 0;
 
         for(int i = 0; i < arr.length;i++){
@@ -91,7 +91,7 @@ public class SW{
 
     }
 
-    public static int maxFruitsInBasketBetter(int[] arr){
+    public static int maxFruitsInBasketBetter(int[] arr){ // T = O(N + N)
         Map<Integer, Integer> basket = new HashMap<>();
 
         int l = 0;
@@ -114,6 +114,10 @@ public class SW{
         return max;
 
     }
+
+    // public static int maxFruitsInBasketOptimal(int[] arr){ // not given on site see from video
+    //     int l = 0, r = 0
+    // }
 
     public static void main(String[] args) {
         String str = "cadbzabcd";

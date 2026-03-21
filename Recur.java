@@ -54,18 +54,17 @@ public class Recur{
         return ans;
     }
 
-    private static double power(double x,long n){
-        
+    private static double power(double x, long n){
+
         if(n == 0) return 1.0;
 
-        if(n == 1) return x;
+        double half = power(x, n/2);
 
         if(n % 2 == 0){
-            return power(x*x,n/2);
+            return half * half;
+        } else {
+            return half * half * x;
         }
-
-        return x * power(x,n-1);
-
     }
 
     public static double myPowOptimal(double x,int n){
@@ -103,6 +102,7 @@ public class Recur{
         return result;
     }
 
+    
 
     public static void main(String[] args){
         String s = "   -12345";

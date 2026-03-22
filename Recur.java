@@ -78,29 +78,43 @@ public class Recur{
     static final int MOD = 1_000_000_007;
     
     // Recursive function to count good numbers
-    public static int countGoodNumbers(int index, int n) {
-        // Base case
-        if (index == n) {  
-            return 1;
-        }
+    // public static int countGoodNumbers(int index, int n) { // DO IT LATER
+    //     // Base case
+    //     if (index == n) {  
+    //         return 1;
+    //     }
         
-        int result = 0;
-        // Even index
-        if (index % 2 == 0) {  
-            int[] evenDigits = {0, 2, 4, 6, 8};
-            for (int digit : evenDigits) {
-                result = (result + countGoodNumbers(index + 1, n)) % MOD;
-            }
-        } 
-        // Odd index
-        else {  
-            int[] primeDigits = {2, 3, 5, 7};
-            for (int digit : primeDigits) {
-                result = (result + countGoodNumbers(index + 1, n)) % MOD;
-            }
+    //     int result = 0;
+    //     // Even index
+    //     if (index % 2 == 0) {  
+    //         int[] evenDigits = {0, 2, 4, 6, 8};
+    //         for (int digit : evenDigits) {
+    //             result = (result + countGoodNumbers(index + 1, n)) % MOD;
+    //         }
+    //     } 
+    //     // Odd index
+    //     else {  
+    //         int[] primeDigits = {2, 3, 5, 7};
+    //         for (int digit : primeDigits) {
+    //             result = (result + countGoodNumbers(index + 1, n)) % MOD;
+    //         }
+    //     }
+    //     return result;
+    // }
+
+    //I-B-H
+    public static void print1toN(int N){
+
+        if(N <= 0){
+            return ;
         }
-        return result;
+
+        print1toN(N-1);
+
+        System.out.println(N);
+
     }
+
 
     
 
@@ -109,5 +123,7 @@ public class Recur{
         System.out.println(atoi(s));
 
         System.out.println(myPowOptimal(2,5));
+
+        print1toN(7);
     }
 }

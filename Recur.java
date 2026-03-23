@@ -115,7 +115,33 @@ public class Recur{
 
     }
 
+        // Function to sort array
+    public static void sortRecursive(int[] arr, int n) {
+        // Base case
+        if (n <= 1)
+            return;
 
+        // Sort first n-1 elements
+        sortRecursive(arr, n - 1);
+
+        // Insert last element in sorted array
+        insertRecursive(arr, n - 1);
+    }
+
+    // Recursive function to insert element at correct position
+    private static void insertRecursive(int[] arr, int i) {
+        // Base case or correct position found
+        if (i == 0 || arr[i] >= arr[i - 1])
+            return;
+
+        // Swap
+        int temp = arr[i];
+        arr[i] = arr[i - 1];
+        arr[i - 1] = temp;
+
+        // Recur for previous index
+        insertRecursive(arr, i - 1);
+    }
     
 
     public static void main(String[] args){
@@ -125,5 +151,9 @@ public class Recur{
         System.out.println(myPowOptimal(2,5));
 
         print1toN(7);
+
+        int[] arr = new int[]{5, 2, 9, 1, 5, 6};
+        sortRecursive(arr, 6);
+        System.out.println("Sorted array: " + java.util.Arrays.toString(arr));
     }
 }

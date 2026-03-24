@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class Recur{
 
@@ -142,18 +143,58 @@ public class Recur{
         // Recur for previous index
         insertRecursive(arr, i - 1);
     }
+
+    public static void sortRecur(ArrayList<Integer> list){
+
+        // Base case
+        if (list.size() <= 1)
+            return;
+
+        // Remove last element
+        int temp = list.remove(list.size() - 1);
+
+        // Sort remaining list
+        sortRecur(list);
+
+        // Insert element at correct position
+        insertRecur(list, temp);
+
+    }
+
+    public static void insertRecur(ArrayList<Integer> list,int temp){
+        if(list.size() == 0 || list.get(list.size() - 1) <= temp){ // check if size of list ==0 or if last element insert is smaller than temp element if yes insert temp at last
+            list.add(temp);
+            return;
+        }
+
+        // now if last element is not smaller than the temp we will remove it temporarily and check if second last is smaller than temp and go on recursively
+
+        int val = list.remove(list.size() - 1);
+
+        insertRecur(list,temp); // try inserting temp at last position
+
+        list.add(val);
+
+    }
     
 
     public static void main(String[] args){
         String s = "   -12345";
-        System.out.println(atoi(s));
+        //System.out.println(atoi(s));
 
-        System.out.println(myPowOptimal(2,5));
+        //System.out.println(myPowOptimal(2,5));
 
-        print1toN(7);
+        //print1toN(7);
 
         int[] arr = new int[]{5, 2, 9, 1, 5, 6};
         sortRecursive(arr, 6);
-        System.out.println("Sorted array: " + java.util.Arrays.toString(arr));
+        //System.out.println("Sorted array: " + java.util.Arrays.toString(arr));
+    
+        ArrayList<Integer> list = new ArrayList<>(Arrays.asList(5, 2, 9, 1, 3));
+
+        sortRecur(list);
+
+        System.out.println(list);
+    
     }
 }

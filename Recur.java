@@ -161,7 +161,7 @@ public class Recur{
 
     }
 
-    public static void insertRecur(ArrayList<Integer> list,int temp){
+    private static void insertRecur(ArrayList<Integer> list,int temp){
         if(list.size() == 0 || list.get(list.size() - 1) <= temp){ // check if size of list ==0 or if last element insert is smaller than temp element if yes insert temp at last
             list.add(temp);
             return;
@@ -176,7 +176,50 @@ public class Recur{
         list.add(val);
 
     }
-    
+
+    public static void sortStackRecur(Stack<Integer> st){
+        if(st.size() <= 1){
+            return;
+        }
+
+        int temp = st.pop();
+
+        sortStackRecur(st);
+
+        insertStackRecur(st,temp);
+    }
+
+    private static void insertStackRecur(Stack<Integer> st,int temp){
+        
+        if(st.isEmpty() || st.peek() <= temp){
+            st.push(temp);
+            return;
+        }
+
+        int val = st.pop();
+
+        insertStackRecur(st,temp);
+
+        st.push(val);
+
+    }
+
+    public static void deleteMiddleOfStackRecur(Stack<Integer> st, int k) {
+        // Base case: middle reached
+        if (k == 1) { // If k is 1, we are at the middle element
+            st.pop();
+            return;
+        }
+
+        // Remove top element
+        int temp = st.pop(); // Store it temporarily
+
+        // Recursive call
+        deleteMiddleOfStackRecur(st, k - 1); // Move towards the middle
+
+        // Push back element
+        st.push(temp); // Restore the stack
+    }    
 
     public static void main(String[] args){
         String s = "   -12345";
@@ -187,14 +230,25 @@ public class Recur{
         //print1toN(7);
 
         int[] arr = new int[]{5, 2, 9, 1, 5, 6};
-        sortRecursive(arr, 6);
+        //sortRecursive(arr, 6);
         //System.out.println("Sorted array: " + java.util.Arrays.toString(arr));
     
         ArrayList<Integer> list = new ArrayList<>(Arrays.asList(5, 2, 9, 1, 3));
 
-        sortRecur(list);
+        //sortRecur(list);
 
-        System.out.println(list);
+        //System.out.println(list);
     
+        Stack<Integer> st = new Stack<>();
+        while(!list.isEmpty()) {
+            st.push(list.remove(list.size() - 1));
+        }
+        //st.addAll(list); // we can also do this but it will add all the elements in the same order as list 
+
+        //sortStackRecur(st);
+        //System.out.println(st);
+
+        int k = st.size() / 2 + 1; // Calculate the position of the middle element (1-based index)
+        deleteMiddleOfStackRecur(st, k);
     }
 }

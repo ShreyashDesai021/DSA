@@ -219,7 +219,33 @@ public class Recur{
 
         // Push back element
         st.push(temp); // Restore the stack
-    }    
+    } 
+
+    public static void reverseStackRecur(Stack<Integer> st){ // Must use O(1) space
+
+        if (st.isEmpty()){
+            return;
+        }
+
+        int temp = st.pop();
+
+        reverseStackRecur(st);
+
+        insertAtBottomRecur(st, temp);
+    }   
+
+    private static void insertAtBottomRecur(Stack<Integer> st,int temp){
+        if (st.isEmpty()) {
+            st.push(temp);
+            return;
+        }
+
+        int val = st.pop();
+
+        insertAtBottomRecur(st, temp);
+
+        st.push(val);
+    }
 
     public static void main(String[] args){
         String s = "   -12345";
@@ -241,14 +267,20 @@ public class Recur{
     
         Stack<Integer> st = new Stack<>();
         while(!list.isEmpty()) {
-            st.push(list.remove(list.size() - 1));
+            st.push(list.remove(0));
         }
         //st.addAll(list); // we can also do this but it will add all the elements in the same order as list 
 
         //sortStackRecur(st);
         //System.out.println(st);
 
-        int k = st.size() / 2 + 1; // Calculate the position of the middle element (1-based index)
-        deleteMiddleOfStackRecur(st, k);
+        //int k = st.size() / 2 + 1; // Calculate the position of the middle element (1-based index)
+        //deleteMiddleOfStackRecur(st, k);
+        //System.out.println(st);
+
+        reverseStackRecur(st);
+        System.out.println(st);
+
+
     }
 }

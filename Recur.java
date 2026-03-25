@@ -247,6 +247,22 @@ public class Recur{
         st.push(val);
     }
 
+    public static int kthSymbolinGrammar(int n, int k){
+
+        if(n == 1 && k == 1){ // given base cond in statement
+            return 0;
+        }
+
+        int mid = (int) Math.pow(2,n-1)/2;  // length/2 => 2^(n-1)/2 , [since : length = 2^(n-1)]
+
+        if(k <= mid){
+            return kthSymbolinGrammar(n-1, k);
+        }else{
+            return 1 - kthSymbolinGrammar(n-1, k - mid); // ( 1 - _) becoz we want its complement 
+        }
+
+    }
+
     public static void main(String[] args){
         String s = "   -12345";
         //System.out.println(atoi(s));
@@ -278,9 +294,10 @@ public class Recur{
         //deleteMiddleOfStackRecur(st, k);
         //System.out.println(st);
 
-        reverseStackRecur(st);
-        System.out.println(st);
+        //reverseStackRecur(st);
+        //System.out.println(st);
 
+        System.out.println(kthSymbolinGrammar(4,3));
 
     }
 }

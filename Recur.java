@@ -263,6 +263,25 @@ public class Recur{
 
     }
 
+    //tower of hanoi
+    static int count = 0;
+
+    public static void toh(int n, char src, char dest, char aux) {
+
+        if (n == 1) {
+            count++;
+            System.out.println("Move disk 1 from " + src + " to " + dest);
+            return;
+        }
+
+        toh(n - 1, src, aux, dest);
+
+        count++;
+        System.out.println("Move disk " + n + " from " + src + " to " + dest);
+
+        toh(n - 1, aux, dest, src);
+    }
+
     public static void main(String[] args){
         String s = "   -12345";
         //System.out.println(atoi(s));
@@ -297,7 +316,11 @@ public class Recur{
         //reverseStackRecur(st);
         //System.out.println(st);
 
-        System.out.println(kthSymbolinGrammar(4,3));
+        //System.out.println(kthSymbolinGrammar(4,3));
+
+        int n = 3;
+        toh(n, 'A', 'C', 'B');
+        System.out.println("Total moves: " + count); // 2^n - 1
 
     }
 }

@@ -304,6 +304,29 @@ public class Recur{
 
     }
 
+    static int unique_subsequence_count = 0;
+
+    static Set<String> unique_subsequence_set = new HashSet<>();
+
+    public static void unique_subsequence(String ip, String op) {
+
+        // Base case
+        if (ip.length() == 0) {
+            if (!unique_subsequence_set.contains(op)) {
+                System.out.println(op);
+                unique_subsequence_set.add(op);
+                unique_subsequence_count++;
+            }
+            return;
+        }
+
+        // Exclude
+        unique_subsequence(ip.substring(1), op);
+
+        // Include
+        unique_subsequence(ip.substring(1), op + ip.charAt(0));
+    }
+
     public static void main(String[] args){
         String s = "   -12345";
         //System.out.println(atoi(s));
@@ -344,8 +367,11 @@ public class Recur{
         // toh(n, 'A', 'C', 'B');
         // System.out.println("Total moves: " + count); // 2^n - 1
 
-        subsequence("abc","");
-        System.out.println(subsequence_count);
+        // subsequence("abc","");
+        // System.out.println(subsequence_count);
+
+        unique_subsequence("aab","");
+        System.out.println(unique_subsequence_count);
 
     }
 }

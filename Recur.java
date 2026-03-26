@@ -306,6 +306,7 @@ public class Recur{
 
     static int unique_subsequence_count = 0;
 
+    // we are using hashset , we can also use set directly to remove duplicates
     static Set<String> unique_subsequence_set = new HashSet<>();
 
     public static void unique_subsequence(String ip, String op) {
@@ -325,6 +326,25 @@ public class Recur{
 
         // Include
         unique_subsequence(ip.substring(1), op + ip.charAt(0));
+    }
+
+    public static void permutations_w_spaces(String ip,String op){
+
+        if(ip.length() == 0){
+            System.out.println(op);
+            return;
+        }
+
+        char first_letter_of_op = ip.charAt(0);
+
+        String op1 = op + " " + first_letter_of_op; // include next char with space
+        String op2 = op + Character.toString(first_letter_of_op);
+
+        String newIp = ip.substring(1);
+
+        permutations_w_spaces(newIp, op1);
+        permutations_w_spaces(newIp, op2);
+
     }
 
     public static void main(String[] args){
@@ -370,8 +390,16 @@ public class Recur{
         // subsequence("abc","");
         // System.out.println(subsequence_count);
 
-        unique_subsequence("aab","");
-        System.out.println(unique_subsequence_count);
+        //unique_subsequence("aab","");
+        //System.out.println(unique_subsequence_count);
+
+        String str = "ABC";
+
+        // First character is always included
+        String op = "" + str.charAt(0);
+        String ip = str.substring(1);
+
+        permutations_w_spaces(ip, op);
 
     }
 }

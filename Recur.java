@@ -282,6 +282,28 @@ public class Recur{
         toh(n - 1, aux, dest, src);
     }
 
+    //ip-op method:
+    static int subsequence_count = 0;
+
+    public static void subsequence(String ip, String op){
+
+        if(ip.length() == 0){
+            subsequence_count++;
+            System.out.println(op);
+            return;
+        }
+
+        String op1 = op;   //exclude case 
+        String op2 = op + ip.charAt(0); // include case
+
+        String newIp = ip.substring(1);
+
+  
+        subsequence(newIp,op1); // to left bracnch
+        subsequence(newIp,op2); // to right branch
+
+    }
+
     public static void main(String[] args){
         String s = "   -12345";
         //System.out.println(atoi(s));
@@ -318,9 +340,12 @@ public class Recur{
 
         //System.out.println(kthSymbolinGrammar(4,3));
 
-        int n = 3;
-        toh(n, 'A', 'C', 'B');
-        System.out.println("Total moves: " + count); // 2^n - 1
+        // int n = 3;
+        // toh(n, 'A', 'C', 'B');
+        // System.out.println("Total moves: " + count); // 2^n - 1
+
+        subsequence("abc","");
+        System.out.println(subsequence_count);
 
     }
 }

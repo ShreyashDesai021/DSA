@@ -347,6 +347,47 @@ public class Recur{
 
     }
 
+    public static void permutations_w_caseChange(String ip,String op){
+        if(ip.length() == 0){
+            System.out.println(op);
+            return;
+        }
+
+        String op1 = op + Character.toString(ip.charAt(0)).toLowerCase();  // without capitalize
+        String op2 = op + Character.toString(ip.charAt(0)).toUpperCase() ;  // with capitalize
+
+        String newIp = ip.substring(1);
+
+        permutations_w_caseChange(newIp, op1);
+        permutations_w_caseChange(newIp, op2);
+
+    }
+
+    public static void permutations_w_caseChange_withNumbers(String ip, String op) {
+
+        if (ip.length() == 0) {
+            System.out.println(op);
+            return;
+        }
+
+        char ch = ip.charAt(0);
+
+        // If character is a letter
+        if (Character.isLetter(ch)) {
+
+            // Lowercase branch
+            permutations_w_caseChange_withNumbers(ip.substring(1), op + Character.toLowerCase(ch));
+
+            // Uppercase branch
+            permutations_w_caseChange_withNumbers(ip.substring(1), op + Character.toUpperCase(ch));
+
+        } else {
+            // If digit or special char → only one choice
+            permutations_w_caseChange_withNumbers(ip.substring(1), op + ch);
+        }
+    }
+
+
     public static void main(String[] args){
         String s = "   -12345";
         //System.out.println(atoi(s));
@@ -393,13 +434,17 @@ public class Recur{
         //unique_subsequence("aab","");
         //System.out.println(unique_subsequence_count);
 
-        String str = "ABC";
+        // String str = "ABC";
 
-        // First character is always included
-        String op = "" + str.charAt(0);
-        String ip = str.substring(1);
+        // // First character is always included
+        // String op = "" + str.charAt(0);
+        // String ip = str.substring(1);
 
-        permutations_w_spaces(ip, op);
+        // permutations_w_spaces(ip, op);
+
+        // permutations_w_caseChange("aB", "");
+
+        permutations_w_caseChange_withNumbers("a1b", "");
 
     }
 }

@@ -387,6 +387,28 @@ public class Recur{
         }
     }
 
+    public static List<String> generateParenthesis(int n) {
+        ArrayList<String> res = new ArrayList<>();
+        solvePar(n, n, "", res);
+        return res;
+    }
+
+    private static void solvePar(int open,int close,String op,ArrayList<String> res){
+        //Base case
+        if(open == 0 && close == 0){
+            res.add(op);
+            return;
+        }
+
+        if(open > 0){ // because we always have chose of "(" , until open > 0
+            solvePar(open-1,close,op + "(",res);
+        }
+
+        if(open < close){ // we can only choose ")" if we have more ")" left than "(" because we can't have more ")" than "(" in a valid parentheses string
+            solvePar(open,close-1,op + ")",res);
+        }
+    }
+
 
     public static void main(String[] args){
         String s = "   -12345";
@@ -444,7 +466,7 @@ public class Recur{
 
         // permutations_w_caseChange("aB", "");
 
-        permutations_w_caseChange_withNumbers("a1b", "");
+        permutations_w_caseChange_withNumbers("a1b2", "");
 
     }
 }

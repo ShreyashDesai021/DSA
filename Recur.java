@@ -282,6 +282,9 @@ public class Recur{
         toh(n - 1, aux, dest, src);
     }
 
+    
+
+
     //ip-op method:
     static int subsequence_count = 0;
 
@@ -409,6 +412,28 @@ public class Recur{
         }
     }
 
+    public static List<String> nBitBinary1GreaterThan0Prefix(int n) {
+        ArrayList<String> res = new ArrayList<>();
+        solve10(0, 0, n,"", res);
+        return res;
+    }
+
+    private static void solve10(int ones,int zeros,int n,String op,ArrayList<String> res){
+        //Base case
+        if(n == 0){
+            res.add(op);
+            return;
+        }
+
+        solve10(ones+1,zeros,n-1,op + "1" , res); // always correct hence no if required     
+
+        if(ones > zeros){
+            solve10(ones,zeros+1,n-1,op + "0",res);
+        }
+
+
+    }
+
 
     public static void main(String[] args){
         String s = "   -12345";
@@ -466,7 +491,15 @@ public class Recur{
 
         // permutations_w_caseChange("aB", "");
 
-        permutations_w_caseChange_withNumbers("a1b2", "");
+        //permutations_w_caseChange_withNumbers("a1b2", "");
+
+        int n = 3;
+
+        List<String> result = nBitBinary1GreaterThan0Prefix(n);
+
+        for (String i : result) {
+            System.out.println(i);
+        }
 
     }
 }

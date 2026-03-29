@@ -206,12 +206,31 @@ public class LL{
         return head;
     }
 
+    public static Node middleElementOptimal(Node head){
+
+        if (head == null) return null;
+
+        Node slow = head;
+
+        Node fast = head;
+
+        while(fast != null && fast.next != null){
+            
+            fast = fast.next.next;
+
+            slow = slow.next;
+        }
+
+        return slow;
+
+    }
+
 
     public static void main(String[] args) {
         // Node one = new Node(4);
         // System.out.println(one.data);
 
-        int[] arr = {2,5,6,8};
+        int[] arr = {2,5,3,4,8};
         Node head = convertArr2LL(arr);
         //System.out.println(head.data);
 
@@ -244,8 +263,11 @@ public class LL{
         // head = insertKthpos(head, 15, 5);
         // traverseLL(head);
 
-        head = insertBeforeGivenVal(head,10,6);
-        traverseLL(head);
+        //head = insertBeforeGivenVal(head,10,6);
+        //traverseLL(head);
+
+        Node middle = middleElementOptimal(head);
+        System.out.println(middle.data);
 
         System.out.println("");
 

@@ -431,8 +431,43 @@ public class Recur{
             solve10(ones,zeros+1,n-1,op + "0",res);
         }
 
-
     }
+
+    public static List<String> permutationWithoutDuplicates(String str) {
+        List<String> res = new ArrayList<>();
+        permute(str, "", res);
+        return res;
+    }
+
+    private static void permute(String ip, String op, List<String> res) {
+
+        // Base case
+        if (ip.length() == 0) {
+            res.add(op);
+            return;
+        }
+
+        // HashSet for duplicate control at this level
+        HashSet<Character> set = new HashSet<>();
+
+        for (int i = 0; i < ip.length(); i++) {
+
+            char ch = ip.charAt(i);
+
+            // Skip duplicate branches
+            if (set.contains(ch)) continue;
+            set.add(ch);
+
+            // Remove chosen char from input
+            String newIp = ip.substring(0, i) + ip.substring(i + 1);
+
+            // Add chosen char to output
+            String newOp = op + ch;
+
+            permute(newIp, newOp, res);
+        }
+    }
+
 
 
     public static void main(String[] args){
@@ -493,11 +528,18 @@ public class Recur{
 
         //permutations_w_caseChange_withNumbers("a1b2", "");
 
-        int n = 3;
+        // int n = 3;
 
-        List<String> result = nBitBinary1GreaterThan0Prefix(n);
+        // List<String> result = nBitBinary1GreaterThan0Prefix(n);
 
-        for (String i : result) {
+        // for (String i : result) {
+        //     System.out.println(i);
+        // }
+
+        String str = "AAB";
+        List<String> ans = permutationWithoutDuplicates(str);
+
+        for (String i : ans) {
             System.out.println(i);
         }
 

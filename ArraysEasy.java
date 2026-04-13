@@ -370,7 +370,7 @@ public class ArraysEasy {
         int XOR2 = 0;
 
         for(int i = 0;i < arr.length;i++){
-            XOR1 ^= arr[i];
+            XOR1 ^= arr[i]; 
         }
 
         for(int i = 0;i <= arr.length;i++){   // here i <= arr.length because we are using it to iterate through numbers for 0 to arr.length
@@ -782,12 +782,42 @@ public class ArraysEasy {
         return ans;
     }
 
+    public static int buySellStock(int[] arr) {
+        int p1 = 0;   // buy day
+        int p2 = 1;   // sell day
+        int maxProfit = 0;
 
- 
+        while (p2 < arr.length) {
+            // better buying day found
+            if (arr[p2] < arr[p1]) {
+                p1 = p2;
+            } else {
+                // sell on p2
+                int profit = arr[p2] - arr[p1];
+                maxProfit = Math.max(maxProfit, profit);
+            }
+            p2++;
+        }
+
+        return maxProfit;
+    }
+
+    public static int buySellStockOptimal(int[] arr) { // works on best price till today intution
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+
+        for (int price : arr) {
+            minPrice = Math.min(minPrice, price);   // best buy
+            int profit = price - minPrice;          // sell today
+            maxProfit = Math.max(maxProfit, profit);
+        }
+
+        return maxProfit;
+    }
 
     public static void main(String[] args) {
         
-        int[] arr = new int[]{-2,-3,4,-1,-2,1,5,7};
+        int[] arr = new int[]{7,0,4,3,2};
         //int t = 18; 
         //int[] arr1 = new int[]{0,1,1,1,0,0,1,1,0,0,1};
 
@@ -876,15 +906,14 @@ public class ArraysEasy {
 
         //int[] t_arr = rearrange_arr_brute(arr); 
 
-        int[] t_arr = rearrange_arr_better(arr);
+        //int[] t_arr = rearrange_arr_better(arr);
 
-        for (int i = 0; i <t_arr.length; i++) {
-             System.out.print(t_arr[i] + " ");
-        }
+        // for (int i = 0; i <t_arr.length; i++) {
+        //      System.out.print(t_arr[i] + " ");
+        // }
 
 
-        System.err.println("");
-
+        System.out.println(buySellStock(arr));
         
     }
 }

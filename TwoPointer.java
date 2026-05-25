@@ -67,6 +67,31 @@ public class TwoPointer{
     
     }
 
+    public int[] sortedSquares(int[] nums) {
+
+        int i = 0; // points to first element of given array
+        int j = nums.length - 1; // points to last element of given array
+        int[] ans = new int[nums.length]; // initialize an array for answer
+        int k = ans.length - 1; // points to last element of answer array
+
+        while(i<=j){
+            if(Math.abs(nums[i]) >= Math.abs(nums[j])){
+                ans[k] = nums[i] * nums[i];
+                k--;
+                i++;
+                // can be written as ans[k--] = nums[i] * nums[i++]
+            }else{
+                ans[k] = nums[j] * nums[j];
+                k--;
+                j--;
+                // can be wriiten as ans[k--] = nums[j] * nums[j--]
+            }
+        }
+
+        return ans;
+
+    }
+
     public static void main(String[] args){
         int[] arr1 = {12,7,2,15};
         int target = 19;
@@ -82,8 +107,11 @@ public class TwoPointer{
         TwoPointer obj1 = new TwoPointer();
         obj1.mergeTwoSortedArrays(nums1,m,nums2,n);
 
-        System.out.println(Arrays.toString(nums1));
+        //System.out.println(Arrays.toString(nums1));
 
+        int[] nums = {-4,-1,0,3,10};
+        System.out.println(Arrays.toString(obj1.sortedSquares(nums)));
+        
     }
 }
 

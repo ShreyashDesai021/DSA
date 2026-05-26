@@ -143,9 +143,50 @@ public class TwoPointer{
         return ans;
     }
 
+    public static int threeSumClosest(int[] nums, int target) {
+
+        if (nums.length < 3)
+            return -1;
+
+        Arrays.sort(nums);
+
+        int min_diff = Integer.MAX_VALUE;
+        int closestSum = 0;
+
+        for (int i = 0; i < nums.length - 2; i++) {
+
+            int x = i + 1;
+            int y = nums.length - 1;
+
+            while (x < y) {
+
+                int sum = nums[i] + nums[x] + nums[y];
+
+                if (sum == target) {
+                    return sum;
+                }
+
+                int diff = Math.abs(target - sum);
+
+                if (diff < min_diff) {
+                    min_diff = diff;
+                    closestSum = sum;
+                }
+
+                if (sum > target) {
+                    y--;
+                } else {
+                    x++;
+                }
+            }
+        }
+
+        return closestSum;
+    }
+
     public static void main(String[] args){
         int[] arr1 = {12,7,2,15};
-        int target = 19;
+        //int target = 19;
         //System.out.println(Arrays.toString(TwoSum(arr1, target)));
 
         int[] arr2 = {1,1,2,2,2,3,3};
@@ -165,7 +206,12 @@ public class TwoPointer{
 
         int[] num = {-1, 0, 1, 2, -1, -4};
 
-        System.out.println(threeSum(num));
+        //System.out.println(threeSum(num));
+
+        int[] num2 = {-1, 2, 1, -4};
+        int target = 1;
+
+        System.out.println(threeSumClosest(num2, target));
         
     }
 }

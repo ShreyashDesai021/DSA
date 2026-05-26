@@ -92,6 +92,57 @@ public class TwoPointer{
 
     }
 
+    public static List<List<Integer>> threeSum(int[] nums) {
+
+        if (nums.length < 3) {
+            return new ArrayList<>();
+        }
+
+        List<List<Integer>> ans = new ArrayList<>();
+
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length - 2; i++) {
+
+            // skip duplicate first element
+            if (i > 0 && nums[i - 1] == nums[i])
+                continue;
+
+            int x = i + 1;
+            int y = nums.length - 1;
+
+            while (x < y) {
+
+                if (nums[x] + nums[y] == -nums[i]) {
+
+                    ans.add(Arrays.asList(nums[i], nums[x], nums[y]));
+
+                    x++;
+                    y--;
+
+                    // skip duplicates for x
+                    while (x < y && nums[x - 1] == nums[x]) {
+                        x++;
+                    }
+
+                    // skip duplicates for y
+                    while (x < y && nums[y] == nums[y + 1]) {
+                        y--;
+                    }
+
+                } 
+                else if (nums[x] + nums[y] < -nums[i]) {
+                    x++;
+                } 
+                else {
+                    y--;
+                }
+            }
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args){
         int[] arr1 = {12,7,2,15};
         int target = 19;
@@ -110,7 +161,11 @@ public class TwoPointer{
         //System.out.println(Arrays.toString(nums1));
 
         int[] nums = {-4,-1,0,3,10};
-        System.out.println(Arrays.toString(obj1.sortedSquares(nums)));
+        //System.out.println(Arrays.toString(obj1.sortedSquares(nums)));
+
+        int[] num = {-1, 0, 1, 2, -1, -4};
+
+        System.out.println(threeSum(num));
         
     }
 }

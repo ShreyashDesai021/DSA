@@ -184,6 +184,28 @@ public class TwoPointer{
         return closestSum;
     }
 
+
+    public static int countTriplets(int sum, int arr[]) {
+        Arrays.sort(arr);
+        // code here
+        int value = 0;
+        int count = 0;
+        for(int i = 0;i < arr.length-2;i++){
+            int x = i+1;
+            int y = arr.length - 1;
+            while(x<y){
+                value = arr[i] + arr[x] + arr[y];
+                if(value < sum){
+                    count += (y - x);
+                    x++;
+                }else if(value >= sum ){
+                    y--;
+                }
+            }
+        }
+        return count;    
+    }
+
     public static void main(String[] args){
         int[] arr1 = {12,7,2,15};
         //int target = 19;
@@ -209,10 +231,14 @@ public class TwoPointer{
         //System.out.println(threeSum(num));
 
         int[] num2 = {-1, 2, 1, -4};
-        int target = 1;
+        //int target = 1;
 
-        System.out.println(threeSumClosest(num2, target));
+        //System.out.println(threeSumClosest(num2, target));
         
+        int[] num3 = {0,3,-2,1};
+        int sum = 2;
+
+        System.out.println(countTriplets(sum, num3));
     }
 }
 

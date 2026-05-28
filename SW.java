@@ -220,6 +220,47 @@ public class SW{
         return minLen == Integer.MAX_VALUE ? 0 : minLen;
     }
 
+    public static int lengthOfLongestSubstring(String s) {
+
+        int low = 0;
+        int maxLen = 0;
+
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (int high = 0; high < s.length(); high++) {
+
+            char ch1 = s.charAt(high);
+            map.put(ch1, map.getOrDefault(ch1, 0) + 1);
+
+            int windowSize = high - low + 1;
+
+            // Shrink window if duplicates exist
+            while (windowSize > map.size()) {
+
+                char ch2 = s.charAt(low);
+                map.put(ch2, map.get(ch2) - 1);
+
+                if (map.get(ch2) == 0) {
+                    map.remove(ch2);
+                }
+
+                low++;
+
+                windowSize = high - low + 1;
+            }
+
+            // Valid window (all unique characters)
+            if (windowSize == map.size()) {
+                int len = high - low + 1;
+                maxLen = Math.max(maxLen, len);
+            }
+        }
+
+        return maxLen;
+    }
+
+    
+
     public static void main(String[] args) {
         String str = "cadbzabcd";
 
@@ -250,9 +291,13 @@ public class SW{
         // System.out.println(minSubArrayLen(target, arr));
 
         
-        int k = 3;
-        String s = "aabacbebebee";
-        System.out.println("Longest substring length = " + longestKSubstr(s, k));
+        // int k = 3;
+        // String s = "aabacbebebee";
+        // System.out.println("Longest substring length = " + longestKSubstr(s, k));
+
+        String s = "abcabcbb";
+
+        System.out.println("Length of Longest Substring Without Repeating Characters = " + lengthOfLongestSubstring(s));
         
     }
 

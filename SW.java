@@ -119,24 +119,98 @@ public class SW{
     //     int l = 0, r = 0
     // }
 
+    // https://www.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1
+    public static int maxSubarraySum(int[] arr, int k) { // k = windowSize
+
+        int windowSize = k;
+
+        int sum = 0;
+
+        int maxSum = Integer.MIN_VALUE;
+
+        // Sum of first window
+        for (int i = 0; i < windowSize; i++) {
+            sum = sum + arr[i];
+        }
+
+        maxSum = Integer.max(maxSum, sum);
+
+        int low = 0;              // element to remove
+        int high = windowSize;   // new element to add
+
+        while (high < arr.length) {
+
+            sum = sum - arr[low] + arr[high];
+
+            maxSum = Integer.max(maxSum, sum);
+
+            low++;
+            high++;
+        }
+
+        return maxSum;
+    }
+
+    public static int minSubArrayLen(int target, int[] arr) {
+
+        int minLen = Integer.MAX_VALUE;
+        int sum = 0;
+
+        int low = 0;
+        int high = 0;
+
+        while (high < arr.length) {
+
+            // add current element
+            sum = sum + arr[high];
+
+            // shrink window while valid
+            while (sum >= target) {
+
+                int length = high - low + 1;
+
+                minLen = Integer.min(minLen, length);
+
+                // remove left element
+                sum = sum - arr[low];
+
+                low++;
+            }
+
+            high++;
+        }
+
+        return minLen == Integer.MAX_VALUE ? 0 : minLen;
+    }
+
     public static void main(String[] args) {
         String str = "cadbzabcd";
 
         //System.out.println(longestSubStrWORepeat(str));
 
-        int[] arr = {1,1,1,0,0,0,1,1,1,1,0};
+        //int[] arr = {1,1,1,0,0,0,1,1,1,1,0};
 
-        int k = 2;
+        //int k = 2;
 
         //System.out.println(maxZerosIIIbetter(arr, k));
 
         //System.out.println(maxZerosIIIoptimal(arr, k));
 
-        int[] fruits = {3,3,3,1,2,1,1,2,3,3,4};
+        //int[] fruits = {3,3,3,1,2,1,1,2,3,3,4};
 
         //System.out.println(maxFruitsInBasketBrute(fruits));
 
-        System.out.println(maxFruitsInBasketBetter(fruits));
+        //System.out.println(maxFruitsInBasketBetter(fruits));
+
+        //int[] arr = {2, 1, 5, 1, 3, 2};
+        //int k = 3;
+
+        //System.out.println(maxSubarraySum(arr, k)); 
+
+        int target = 7;
+        int[] arr ={2,3,1,2,4,3};
+
+        System.out.println(minSubArrayLen(target, arr));
         
     }
 

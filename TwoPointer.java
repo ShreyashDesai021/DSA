@@ -184,7 +184,7 @@ public class TwoPointer{
         return closestSum;
     }
 
-
+   //https://www.geeksforgeeks.org/problems/count-triplets-with-sum-smaller-than-x5549/1
     public static int countTriplets(int sum, int arr[]) {
         Arrays.sort(arr);
         // code here
@@ -238,7 +238,8 @@ public class TwoPointer{
         int[] num3 = {0,3,-2,1};
         int sum = 2;
 
-        System.out.println(countTriplets(sum, num3));
+        //System.out.println(countTriplets(sum, num3));
+    
     }
 }
 

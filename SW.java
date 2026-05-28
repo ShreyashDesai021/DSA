@@ -151,6 +151,43 @@ public class SW{
         return maxSum;
     }
 
+    // https://www.geeksforgeeks.org/problems/longest-k-unique-characters-substring0853/1
+    public static int longestKSubstr(String s, int k) {
+
+        int low = 0;
+        int longestStr = -1;
+
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (int high = 0; high < s.length(); high++) {
+
+            char ch = s.charAt(high);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+
+            // Shrink window if unique characters > k
+            while (map.size() > k) {
+
+                char leftChar = s.charAt(low);
+                map.put(leftChar, map.get(leftChar) - 1);
+
+                // Remove character if frequency becomes 0
+                if (map.get(leftChar) == 0) {
+                    map.remove(leftChar);
+                }
+
+                low++;
+            }
+
+            // If exactly k unique characters
+            if (map.size() == k) {
+                int len = high - low + 1;
+                longestStr = Math.max(longestStr, len);
+            }
+        }
+
+        return longestStr;
+    }
+
     public static int minSubArrayLen(int target, int[] arr) {
 
         int minLen = Integer.MAX_VALUE;
@@ -207,10 +244,15 @@ public class SW{
 
         //System.out.println(maxSubarraySum(arr, k)); 
 
-        int target = 7;
-        int[] arr ={2,3,1,2,4,3};
+        // int target = 7;
+        // int[] arr ={2,3,1,2,4,3};
 
-        System.out.println(minSubArrayLen(target, arr));
+        // System.out.println(minSubArrayLen(target, arr));
+
+        
+        int k = 3;
+        String s = "aabacbebebee";
+        System.out.println("Longest substring length = " + longestKSubstr(s, k));
         
     }
 

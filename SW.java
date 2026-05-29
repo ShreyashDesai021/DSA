@@ -259,7 +259,94 @@ public class SW{
         return maxLen;
     }
 
+    // in the below approach we are using "Let me recalculate strongest character every time." intuition
+    public static int characterReplacement(String s, int k) { // T = O(26 * n) = O(n), S = O(255)
+        
+        int low = 0;
+        int high;
+        int maxLen = Integer.MIN_VALUE;
+        int[] hashArr = new int[255]; // to calculate 
+        
+        for(high = 0;high < s.length();high++){
+
+            hashArr[s.charAt(high) - 'A'] += 1; // or hashArr[s.charAt(high)]++:
+
+            int windowSize = high - low + 1;
+
+            int maxEleFreq = maxFreqEle(hashArr);
+
+            int freq_of_non_max = windowSize - maxEleFreq;
+
+            while(freq_of_non_max > k){
+
+                hashArr[s.charAt(low) - 'A'] -= 1; // or hashArr[s.charAt(low)]--;
+                low++;
+
+                // recalculate after shrinking
+                windowSize = high - low + 1;
+                maxEleFreq = maxFreqEle(hashArr);
+                freq_of_non_max = windowSize - maxEleFreq;
+
+            }
+
+            if(freq_of_non_max <= k){
+                int len = high - low + 1;
+                maxLen = Integer.max(maxLen,len); 
+            }
+        }
+
+        return maxLen;
+
+    }
+
+    private static int maxFreqEle(int[] arr){
+        int max = arr[0];
+        for(int i = 0;i < arr.length-1;i++){
+            
+            if(arr[i+1]>max){
+                max = arr[i+1];
+            }
+        }
+        return max;
+    }    
+
+    // we can slighlty optimize the above code by using "I already know strongest seen so far." intuition
     
+    public static int characterReplacement2(String s, int k) {
+
+        int low = 0;
+        int maxLen = 0;
+        int maxFreq = 0;
+
+        int[] freq = new int[26];
+
+        for (int high = 0; high < s.length(); high++) {
+
+            char ch = s.charAt(high);
+
+            freq[ch - 'A']++;
+
+            maxFreq = Math.max(maxFreq,
+                               freq[ch - 'A']);
+
+            int windowSize = high - low + 1;
+
+            // invalid window
+            while ((windowSize - maxFreq) > k) {
+
+                freq[s.charAt(low) - 'A']--;
+                low++;
+
+                windowSize = high - low + 1;
+            }
+
+            maxLen = Math.max(maxLen,
+                              high - low + 1);
+        }
+
+        return maxLen;
+    }
+
 
     public static void main(String[] args) {
         String str = "cadbzabcd";
@@ -295,9 +382,16 @@ public class SW{
         // String s = "aabacbebebee";
         // System.out.println("Longest substring length = " + longestKSubstr(s, k));
 
-        String s = "abcabcbb";
+        // String s = "abcabcbb";
 
-        System.out.println("Length of Longest Substring Without Repeating Characters = " + lengthOfLongestSubstring(s));
+        // System.out.println("Length of Longest Substring Without Repeating Characters = " + lengthOfLongestSubstring(s));
+
+        String s = "AABABBA";
+        int k = 1;
+
+        System.out.println("Longest substring length after replacement = " + characterReplacement(s, k));
+
+        System.out.println("Longest substring length after replacement = " + characterReplacement2(s, k));
         
     }
 

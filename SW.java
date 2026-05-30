@@ -347,6 +347,60 @@ public class SW{
         return maxLen;
     }
 
+    public static String minWindow(String s, String t) {
+
+        int[] hashArr = new int[128];
+
+        for (int i = 0; i < t.length(); i++) {
+            hashArr[t.charAt(i)]++;
+        }
+
+        int low = 0;
+        int count = t.length();
+
+        int minLen = Integer.MAX_VALUE;
+        int startIndex = -1;
+
+        for (int high = 0; high < s.length(); high++) {
+
+            char ch = s.charAt(high);
+
+            // needed character
+            if (hashArr[ch] > 0) {
+                count--;
+            }
+
+            hashArr[ch]--;
+
+            // valid window
+            while (count == 0) {
+
+                int windowSize = high - low + 1;
+
+                if (windowSize < minLen) {
+                    minLen = windowSize;
+                    startIndex = low;
+                }
+
+                char leftChar = s.charAt(low);
+
+                hashArr[leftChar]++;
+
+                // required char lost
+                if (hashArr[leftChar] > 0) {
+                    count++;
+                }
+
+                low++;
+            }
+        }
+
+        return startIndex == -1
+                ? ""
+                : s.substring(startIndex,
+                              startIndex + minLen);
+    }
+
 
     public static void main(String[] args) {
         String str = "cadbzabcd";
@@ -386,12 +440,16 @@ public class SW{
 
         // System.out.println("Length of Longest Substring Without Repeating Characters = " + lengthOfLongestSubstring(s));
 
-        String s = "AABABBA";
-        int k = 1;
+        // String s = "AABABBA";
+        // int k = 1;
 
-        System.out.println("Longest substring length after replacement = " + characterReplacement(s, k));
+        // System.out.println("Longest substring length after replacement = " + characterReplacement(s, k));
 
-        System.out.println("Longest substring length after replacement = " + characterReplacement2(s, k));
+        // System.out.println("Longest substring length after replacement = " + characterReplacement2(s, k));
+
+        String s = "ADOBECODEBANC";
+        String t = "ABC";
+        System.out.println("Minimum window substring = " + minWindow(s, t));
         
     }
 

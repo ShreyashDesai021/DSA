@@ -14,6 +14,18 @@ class Node{
 
 }
 
+
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) {
+        val = x;
+         next = null;
+    }
+}
+ 
+
 public class LL{
     public static Node convertArr2LL(int[] arr){
         Node head = new Node(arr[0]);
@@ -225,17 +237,54 @@ public class LL{
 
     }
 
+    public static boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast){
+                return true;
+            }
+        } 
+
+        return false;
+    }
+
+//slow == fast checks if both pointers are pointing to the same node (same memory location).
+// Example:
+// 1 → 2 → 3 → 4
+//       ↑     ↓
+//       ← ← ←
+// If both slow and fast reach node 4, then:
+// slow == fast   // true
+// because they are the same node object.
+// We don’t use:
+// slow.val == fast.val
+// because different nodes can have the same value.
+// Example:
+// 1 → 2 → 3 → 2 → null
+// Here both nodes have value 2, but no cycle exists.
+// So:
+// slow.val == fast.val  // true ❌ (wrong)
+// slow == fast          // false ✅
+// Rule:
+// == → compares node reference/address ✅
+// .val == .val → compares only values ❌ for cycle detection
+
 
     public static void main(String[] args) {
         // Node one = new Node(4);
         // System.out.println(one.data);
 
-        int[] arr = {2,5,3,4,8};
-        Node head = convertArr2LL(arr);
-        //System.out.println(head.data);
+        // int[] arr = {2,5,3,4,8};
+        // Node head = convertArr2LL(arr);
+        // //System.out.println(head.data);
 
-        traverseLL(head);
-        System.out.println("");
+        // traverseLL(head);
+        // System.out.println("");
         //int length_of_LL = lengthLL(head);
         //System.out.println(length_of_LL);
 
@@ -266,10 +315,19 @@ public class LL{
         //head = insertBeforeGivenVal(head,10,6);
         //traverseLL(head);
 
-        Node middle = middleElementOptimal(head);
-        System.out.println(middle.data);
+        // Node middle = middleElementOptimal(head);
+        // System.out.println(middle.data);
 
-        System.out.println("");
+        // System.out.println("");
+
+        int[] arr = {2,5,3,4,8};
+        Node head = convertArr2LL(arr);
+        ListNode head2 = new ListNode(1);
+        head2.next = new ListNode(2);
+        head2.next.next = new ListNode(3);
+        head2.next.next.next = head2; // creating a cycle
+
+        System.out.println(hasCycle(head2));
 
     }
 }

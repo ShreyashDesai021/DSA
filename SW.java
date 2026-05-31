@@ -403,7 +403,7 @@ public class SW{
 
 
     public static void main(String[] args) {
-        String str = "cadbzabcd";
+        //String str = "cadbzabcd";
 
         //System.out.println(longestSubStrWORepeat(str));
 

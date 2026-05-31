@@ -275,6 +275,7 @@ public class LL{
 // .val == .val → compares only values ❌ for cycle detection
 
 
+
     public static void main(String[] args) {
         // Node one = new Node(4);
         // System.out.println(one.data);
@@ -320,14 +321,16 @@ public class LL{
 
         // System.out.println("");
 
-        int[] arr = {2,5,3,4,8};
-        Node head = convertArr2LL(arr);
-        ListNode head2 = new ListNode(1);
-        head2.next = new ListNode(2);
-        head2.next.next = new ListNode(3);
-        head2.next.next.next = head2; // creating a cycle
+        // int[] arr = {2,5,3,4,8};
+        // Node head = convertArr2LL(arr);
+        // ListNode head2 = new ListNode(1);
+        // head2.next = new ListNode(2);
+        // head2.next.next = new ListNode(3);
+        // head2.next.next.next = head2; // creating a cycle
 
-        System.out.println(hasCycle(head2));
+        // System.out.println(hasCycle(head2));
+
+
 
     }
 }

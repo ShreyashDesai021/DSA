@@ -302,6 +302,55 @@ public class LL{
         return null;
     }
 
+//even though this question is of array, I have put it here becoz it uses the same concept of cycle detection in linked list, just that here we are treating the array as a linked list where the value at each index points to the next index. The duplicate number will create a cycle in this "linked list" representation of the array.
+    public static int findDuplicate(int[] nums) {
+        int slow = nums[0];
+        int fast = nums[0];
+
+        do{
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }while(slow != fast);
+
+        slow = nums[0];
+
+        while(slow != fast){
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+
+        return slow;
+    }
+
+    public static boolean isHappy(int n) {
+
+        int slow = n;
+        int fast = n;
+
+        do{
+            slow = squareSum(slow);
+            fast = squareSum(squareSum(fast));
+        }while(slow != fast);
+
+        if(slow == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private static int squareSum(int n){
+        int sum = 0;
+
+        while(n > 0){
+            int d = n % 10;
+            sum += d * d;
+            n /= 10;
+        }
+
+        return sum;
+    }
+
     public static void main(String[] args) {
         // Node one = new Node(4);
         // System.out.println(one.data);
@@ -356,7 +405,12 @@ public class LL{
 
         // System.out.println(hasCycle(head2));
 
+        // int[] nums = {3,1,3,4,2};
+        // System.out.println(findDuplicate(nums));
 
+        int n = 19;
+        System.out.println(isHappy(n));
 
+        
     }
 }

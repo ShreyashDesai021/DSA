@@ -274,7 +274,33 @@ public class LL{
 // == → compares node reference/address ✅
 // .val == .val → compares only values ❌ for cycle detection
 
+//https://leetcode.com/problems/linked-list-cycle-ii/
+    public static  ListNode detectCycleStart(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
 
+        while(fast != null && fast.next != null){
+
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast){  // both meet
+
+                slow = head; // reset slow to the head
+
+                while(slow != fast){ // move them one node each time until they meet
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+
+                return slow; // both have met at the start of cycle so return 
+
+            }
+
+        }
+
+        return null;
+    }
 
     public static void main(String[] args) {
         // Node one = new Node(4);

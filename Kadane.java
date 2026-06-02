@@ -61,6 +61,31 @@ class Kadane{
 
     }
 
+    public static int maxAbsoluteSum(int[] nums) {
+        
+        int minSum = 0;
+        int maxSum = 0;
+        int maxAbsSum = 0;
+
+        for(int i = 0;i < nums.length;i++){
+            
+            int v1 = minSum + nums[i];
+            int v2 = nums[i];
+
+            minSum = Integer.min(v1,v2);
+
+            int v3 = maxSum + nums[i];
+            int v4 = nums[i];
+
+            maxSum = Integer.max(v3,v4);
+
+            maxAbsSum = Integer.max(maxAbsSum,Integer.max(maxSum,Math.abs(minSum))); // dont forget to write previous maxAbsSum while comparing nigga
+
+        }
+
+        return maxAbsSum;
+    }
+
     public static void main(String[] args){
         // int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
         // System.out.println(maxSubArray(nums));
@@ -68,8 +93,11 @@ class Kadane{
         // int[] nums = {1, 2, 3, -4, 5};
         // System.out.println(smallestSumSubarray(nums));
         
-        int[] nums = {2, 3, -2, 4};
-        System.out.println(maxProduct(nums));
+        // int[] nums = {2, 3, -2, 4};
+        // System.out.println(maxProduct(nums));
+
+        int[] nums = {1, -3, 2, 1, -1};
+        System.out.println(maxAbsoluteSum(nums));
 
     }
 }

@@ -801,6 +801,8 @@ public class ArraysEasy {
 
         return maxProfit;
     }
+    //Yes, this is a two-pointer approach.Specifically, it is a variation of the two-pointer technique often used to solve the "Best Time to Buy and Sell Stock" problem efficiently in $O(n)$ time complexity with $O(1)$ space complexity.How it works:
+    //p1 (Left Pointer): Tracks the potential buy day (the lowest price encountered so far).p2 (Right Pointer): Iterates through the array to act as the sell day.
 
     public static int buySellStockOptimal(int[] arr) { // works on best price till today intution
         int minPrice = Integer.MAX_VALUE;

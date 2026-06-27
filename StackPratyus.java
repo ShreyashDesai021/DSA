@@ -25,9 +25,36 @@ class StackPratyus {
         return list;
     }
 
+    public static ArrayList<Integer> prevSmaller(int[] arr) {
+        // code here
+        Stack<Integer> st = new Stack<>();
+        
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        for(int i = 0;i < arr.length;i++){
+            
+            while(!st.isEmpty() && st.peek() >= arr[i]){
+                st.pop();
+            }
+            if(st.isEmpty()){
+                list.add(-1);
+            }else{
+                list.add(st.peek());
+            }
+            
+            st.push(arr[i]);
+        }
+        
+        
+        return list;
+    }
+
     public static void main(String[] args) {
         int[] arr = new int[]{1, 3, 2, 4};
         ArrayList<Integer> result = preGreaterEle(arr);
         System.out.println(result); // Output: [-1, -1, 3, -1]
+
+        ArrayList<Integer> result2 = prevSmaller(arr);
+        System.out.println(result2); // Output: [-1, 1, 1, 2]
     }
 }

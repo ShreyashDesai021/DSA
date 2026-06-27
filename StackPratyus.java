@@ -49,6 +49,59 @@ class StackPratyus {
         return list;
     }
 
+    public static ArrayList<Integer> nextSmallerEle(int[] arr) {
+        // code here
+        Stack<Integer> st = new Stack<>();
+        
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        
+        for(int i = arr.length - 1;i >= 0;i--){
+            
+            while (!st.isEmpty() && st.peek() >= arr[i]) {
+                st.pop();
+            }
+            
+            if(st.isEmpty()){
+                list.add(-1);
+            }else{
+                list.add(st.peek());
+            }
+            
+            st.push(arr[i]);
+        }
+        
+        Collections.reverse(list);
+        return list;
+    }
+
+    public static ArrayList<Integer> nextLargerElement(int[] arr) {
+        // code here
+        Stack<Integer> st = new Stack<>();
+        
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        
+        for(int i = arr.length - 1;i >= 0;i--){
+            
+            while (!st.isEmpty() && st.peek() <= arr[i]) {
+                st.pop();
+            }
+            
+            if(st.isEmpty()){
+                list.add(-1);
+            }else{
+                list.add(st.peek());
+            }
+            
+            st.push(arr[i]);
+        }
+        
+        Collections.reverse(list);
+        return list;
+    }
+
+
     public static void main(String[] args) {
         int[] arr = new int[]{1, 3, 2, 4};
         ArrayList<Integer> result = preGreaterEle(arr);
@@ -56,5 +109,11 @@ class StackPratyus {
 
         ArrayList<Integer> result2 = prevSmaller(arr);
         System.out.println(result2); // Output: [-1, 1, 1, 2]
+
+        ArrayList<Integer> result3 = nextSmallerEle(arr);
+        System.out.println(result3); // Output: [-1, 2, -1, -1]
+
+        ArrayList<Integer> result4 = nextLargerElement(arr);
+        System.out.println(result4); // Output: [3, 4, 4, -1]
     }
 }

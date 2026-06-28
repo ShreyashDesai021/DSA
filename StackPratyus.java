@@ -102,6 +102,36 @@ class StackPratyus {
     }
 
 
+    public static int[] nextGreaterElementsCir(int[] nums) {
+        Deque<Integer> st = new ArrayDeque<Integer>();
+
+        int[] arr = new int[nums.length];
+
+        for(int i = nums.length - 1;i >= 0;i--){
+            st.push(nums[i]);
+        }
+
+        for(int i = nums.length-1;i >= 0;i--){
+
+            while(!st.isEmpty() && nums[i] >= st.peek()){
+                st.pop();
+            }
+
+            if(st.isEmpty()){
+                arr[i] = -1;
+            }else{
+                arr[i] = st.peek();
+            }
+
+            st.push(nums[i]);
+
+        }
+
+        return arr;
+
+    }
+
+
     public static void main(String[] args) {
         int[] arr = new int[]{1, 3, 2, 4};
         ArrayList<Integer> result = preGreaterEle(arr);
@@ -115,5 +145,8 @@ class StackPratyus {
 
         ArrayList<Integer> result4 = nextLargerElement(arr);
         System.out.println(result4); // Output: [3, 4, 4, -1]
+
+        int[] result5 = nextGreaterElementsCir(arr);
+        System.out.println(Arrays.toString(result5)); // Output: [3, 4, 4, -1]
     }
 }

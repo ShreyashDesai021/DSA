@@ -20,6 +20,7 @@ public class Hashmap{
         return -1;
     }
 
+// Below method use O(n) space complexity and O(n) time complexity, but it works for all characters.
     public static boolean canConstruct(String ransomNote, String magazine) {
         HashMap<Character,Integer> map = new HashMap<>();
         
@@ -43,9 +44,50 @@ public class Hashmap{
         return true;
     }
 
+
+// Below method use O(1) space complexity and O(n) time complexity, but it only works for lowercase letters a-z.
+    // public static boolean canConstruct(String ransomNote, String magazine) {
+    //     int[] freq = new int[26];
+
+    //     for (char ch : magazine.toCharArray()) {
+    //         freq[ch - 'a']++;
+    //     }
+
+    //     for (char ch : ransomNote.toCharArray()) {
+    //         if (--freq[ch - 'a'] < 0) {
+    //             return false;
+    //         }
+    //     }
+
+    //     return true;
+    // }
+
+    public static int maxNumberOfBalloons(String text) {
+        
+        HashMap<Character,Integer> map = new HashMap<>();
+        
+        for(int i = 0; i < text.length();i++){
+            char ch = text.charAt(i);
+            
+            map.put(ch,map.getOrDefault(ch,0)+1);
+
+        }
+
+        int b = map.getOrDefault('b', 0);
+        int a = map.getOrDefault('a', 0);
+        int l = map.getOrDefault('l', 0) / 2; // "balloon" needs 2 'l's, so divide the count by 2. Integer division floors the result (5/2 = 2)
+        int o = map.getOrDefault('o', 0) / 2;
+        int n = map.getOrDefault('n', 0);
+
+        return Math.min(b,Math.min(a,Math.min(l,Math.min(o, n))));
+
+    }
+
     public static void main(String[] args) {
         System.out.println(firstUniqChar("leetcode")); // Output: 0
 
         System.out.println(canConstruct("aa", "aab")); // Output: true
+
+        System.out.println(maxNumberOfBalloons("loonbalxballpoonl")); // Output: 2
     }
 }

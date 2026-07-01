@@ -83,11 +83,42 @@ public class Hashmap{
 
     }
 
+    public static int longestPalindrome(String s) {
+        HashMap<Character,Integer> map = new HashMap<>();
+
+        for(int i = 0;i < s.length();i++){
+            char ch = s.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+
+        int length = 0;
+        boolean oddFlag = false;
+
+        for(int freq : map.values()){
+            if(freq % 2 == 0){
+                length += freq;  // for even times appearing character we can take it completely in for palindrome 
+            }else{
+                length += freq - 1;
+                oddFlag = true;
+            }
+        }
+
+        if(oddFlag){
+            length += 1;
+        }
+
+        return length;
+
+
+    }
+
     public static void main(String[] args) {
         System.out.println(firstUniqChar("leetcode")); // Output: 0
 
         System.out.println(canConstruct("aa", "aab")); // Output: true
 
         System.out.println(maxNumberOfBalloons("loonbalxballpoonl")); // Output: 2
+
+        System.out.println(longestPalindrome("abccccdd")); // Output: 7
     }
 }

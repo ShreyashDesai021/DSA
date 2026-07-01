@@ -14,18 +14,6 @@ class Node{
 
 }
 
-
-
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) {
-        val = x;
-         next = null;
-    }
-}
- 
-
 public class LL{
     public static Node convertArr2LL(int[] arr){
         Node head = new Node(arr[0]);
@@ -237,9 +225,9 @@ public class LL{
 
     }
 
-    public static boolean hasCycle(ListNode head) {
-        ListNode slow = head;
-        ListNode fast = head;
+    public static boolean hasCycle(Node head) {
+        Node slow = head;
+        Node fast = head;
 
         while(fast != null && fast.next != null){
             slow = slow.next;
@@ -275,9 +263,9 @@ public class LL{
 // .val == .val → compares only values ❌ for cycle detection
 
 //https://leetcode.com/problems/linked-list-cycle-ii/
-    public static  ListNode detectCycleStart(ListNode head) {
-        ListNode slow = head;
-        ListNode fast = head;
+    public static  Node detectCycleStart(Node head) {
+        Node slow = head;
+        Node fast = head;
 
         while(fast != null && fast.next != null){
 
@@ -351,6 +339,23 @@ public class LL{
         return sum;
     }
 
+
+    public static Node reverseList(Node head) {
+        Node curr = head;
+        Node prev = null;
+
+        while(curr != null){
+            Node temp = curr.next;
+
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+
+        return prev;
+    }
+
+
     public static void main(String[] args) {
         // Node one = new Node(4);
         // System.out.println(one.data);
@@ -408,9 +413,15 @@ public class LL{
         // int[] nums = {3,1,3,4,2};
         // System.out.println(findDuplicate(nums));
 
-        int n = 19;
-        System.out.println(isHappy(n));
+        // int n = 19;
+        // System.out.println(isHappy(n));
 
-        
+        int[] arr = {1,2,3,4,5};
+        Node head = convertArr2LL(arr);
+
+        head = reverseList(head);
+
+        System.out.println("Reversed Linked List:");
+        traverseLL(head);
     }
 }

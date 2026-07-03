@@ -355,6 +355,44 @@ public class LL{
         return prev;
     }
 
+    public static Node reverseBetween(Node head, int left, int right) {
+        if (head == null || left == right) {
+            return head;
+        }
+
+        Node temp = new Node(0);
+        temp.next = head;
+
+        Node before = temp;
+        int pos = 1;
+
+        while (pos < left) {
+            before = before.next;
+            pos++;
+        }
+
+        Node first = before.next;
+        Node helper = first;
+        Node prev = null;
+
+        int times = right - left + 1;
+
+        while (times > 0) {
+            Node mechanic = helper.next;
+            helper.next = prev;
+            prev = helper;
+            helper = mechanic;
+            times--;
+        }
+
+        // Reconnect
+        before.next = prev;
+        first.next = helper;
+
+        return temp.next;
+    }
+
+
 
     public static void main(String[] args) {
         // Node one = new Node(4);
@@ -419,9 +457,14 @@ public class LL{
         int[] arr = {1,2,3,4,5};
         Node head = convertArr2LL(arr);
 
-        head = reverseList(head);
+        // head = reverseList(head);
 
-        System.out.println("Reversed Linked List:");
+        // System.out.println("Reversed Linked List:");
+        // traverseLL(head);
+
+        reverseBetween(head, 2, 4);
+
         traverseLL(head);
+
     }
 }

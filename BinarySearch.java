@@ -268,9 +268,41 @@ public class BinarySearch{
         
         }
         return -1;                                                                                                                                                                                                                                                                                        
-    }                                                                                                                                              
+    }      
 
+    public static int[] searchRanges(int[] nums, int target) {
+        int first = findIndex(nums,target,true);
+        int last = findIndex(nums,target,false);
+        return new int[]{first,last};
+    }
 
+    public static int findIndex(int[] nums,int target,boolean findFirst){
+        int low = 0;
+        int high = nums.length - 1;
+        int n = nums.length;
+        int result = -1;
+
+        while(low <= high){
+            int mid = low + (high-low)/2;
+
+            if(nums[mid] == target){
+                if(findFirst){
+                    result = mid;
+                    high = mid - 1;
+                }else{
+                    result = mid;
+                    low = mid + 1;
+                }
+            }else if(nums[mid] > target){
+                high = mid - 1;
+            }else{
+                low = mid + 1;
+            }
+        }
+
+        return result;
+    }
+                                                                                                                                            
 
     public static void main(String[] args){
         int[] arr = {6, 7, 8, 1, 2, 3, 4, 5};
@@ -316,6 +348,8 @@ public class BinarySearch{
         //     System.out.print(x + " ");
         // }
         // System.out.println("");
+
+        
 
 
     }

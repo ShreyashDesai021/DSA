@@ -270,6 +270,8 @@ public class BinarySearch{
         return -1;                                                                                                                                                                                                                                                                                        
     }      
 
+    // Pratyush
+
     public static int[] searchRanges(int[] nums, int target) {
         int first = findIndex(nums,target,true);
         int last = findIndex(nums,target,false);
@@ -301,6 +303,23 @@ public class BinarySearch{
         }
 
         return result;
+    }
+
+    public static int peakIndexInMountainArray(int[] arr) {
+        int low = 0;
+        int high = arr.length - 1;
+
+        while(low < high){
+            int mid = low + (high-low)/2;
+
+            if(arr[mid] > arr[mid+1]){
+                high = mid;
+            }else{
+                low = mid + 1;
+            }
+        }   
+
+        return low;
     }
                                                                                                                                             
 
@@ -349,7 +368,7 @@ public class BinarySearch{
         // }
         // System.out.println("");
 
-        
+
 
 
     }

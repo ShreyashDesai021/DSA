@@ -1,5 +1,5 @@
 
-public class BinarySearch{
+public class BS{
     // BS Iterative // Time Complexity: O(log n) , Space Complexity: O(1)
     public static int bsIterative(int[] arr,int target){
         int low = 0;
@@ -320,6 +320,26 @@ public class BinarySearch{
         }   
 
         return low;
+    }
+
+    public static int findMin(int[] arr) {
+        int low = 0;
+        int high = arr.length - 1;
+
+        int result = -1;
+
+        while(low < high){
+            int guess = low + (high - low)/2;
+
+            if(arr[guess] > arr[high]){ // this means we are in part 2 that is the rotated part of the array
+                low = guess + 1;
+            }else{  // this means we are in first part that is non rotated part so we have to search in left of the guess element if more smaller element is present or not, but before that store the result 
+                high = guess;
+            }
+        }   
+
+        return arr[low];
+
     }
                                                                                                                                             
 

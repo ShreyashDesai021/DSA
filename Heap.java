@@ -15,6 +15,19 @@ class Pair{
     }
 }
 
+
+class Pair2{
+    int first;
+    int second;
+
+    Pair2(int f,int s){
+        first = f;
+        second = s;
+    }
+
+
+}
+
 public class Heap {
     public int kthSmallest(int[] arr, int k) {
 
@@ -56,12 +69,92 @@ public class Heap {
         return pq.peek();
     }
 
+    public static int[] topKFrequent(int[] nums, int k){
+        
+        PriorityQueue<Pair2> pq = new PriorityQueue<>(
+           (a,b) -> {
+                if(a.second != b.second){
+                    return b.second - a.second;
+                }
+                return b.first - a.first;
+           } 
+        );
+
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        }
+
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int a = entry.getKey(); 
+            int b = entry.getValue();
+
+            pq.offer(new Pair2(a,b));
+        }
+
+        int[] arr = new int[k];
+
+        for(int i = 0;i < k;i++){
+            arr[i] = pq.poll().first;
+        }
+
+        return arr;
+    }
+
+    public static int[] topKFrequentOptimal(int[] nums, int k) {
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        // Min Heap based on frequency
+        PriorityQueue<Pair2> pq = new PriorityQueue<>(
+            (a, b) -> {
+                if (a.second != b.second) {
+                    return a.second - b.second;
+                }
+                return a.first - b.first;
+            }
+        );
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+
+            int element = entry.getKey();
+            int freq = entry.getValue();
+
+            Pair2 curr = new Pair2(element, freq);
+
+            if (pq.size() < k) {
+                pq.offer(curr);
+                continue;
+            }
+
+            if (curr.second > pq.peek().second) {
+                pq.poll();
+                pq.offer(curr);
+            }
+        }
+
+        int[] ans = new int[k];
+        int i = 0;
+
+        while (!pq.isEmpty()) {
+            ans[i++] = pq.poll().first;
+        }
+
+        return ans;
+    }
+
     public static void main(String[] args) {
         // Heap heap = new Heap();
         // int[] arr = {7, 10, 4, 3, 20, 15};
         // int k = 3;
         // System.out.println("Kth smallest element is: " + heap.kthSmallest(arr, k));
-    
+        
         //Min Heap on First, Min Heap in Second
 
         System.out.println("Min Heap on First, Min Heap in Second");
@@ -140,6 +233,8 @@ public class Heap {
 
         while (!pq4.isEmpty())
             System.out.println(pq4.poll());
+
+
     
     }
 
